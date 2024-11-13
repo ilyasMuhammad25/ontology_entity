@@ -1,0 +1,201 @@
+```ttl
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix mit: <http://example.org/master_indikators#> .
+@prefix mic1: <http://example.org/master_indikators_copy1#> .
+@prefix mkg: <http://example.org/master_kegiatans#> .
+@prefix sds: <http://example.org/standar_data_statistik_nasionals#> .
+
+# Define classes
+mit:MasterIndikators a rdfs:Class ;
+    rdfs:label "Master Indikator" .
+
+mic1:MasterIndikatorsCopy1 a rdfs:Class ;
+    rdfs:label "Master Indikator Copy 1" .
+
+mkg:MasterKegiatans a rdfs:Class ;
+    rdfs:label "Master Kegiatan" .
+
+sds:StandarDataStatistikNasional a rdfs:Class ;
+    rdfs:label "Standar Data Statistik Nasional" .
+
+# Define properties
+mit:id a rdf:Property ;
+    rdfs:label "ID" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mit:id_mskeg a rdf:Property ;
+    rdfs:label "ID MSKEG" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mit:nama a rdf:Property ;
+    rdfs:label "Nama" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mit:konsep a rdf:Property ;
+    rdfs:label "Konsep" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mit:definisi a rdf:Property ;
+    rdfs:label "Definisi" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mit:produsen_data_name a rdf:Property ;
+    rdfs:label "Produsen Data Name" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mit:produsen_data_province_code a rdf:Property ;
+    rdfs:label "Produsen Data Province Code" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mit:produsen_data_city_code a rdf:Property ;
+    rdfs:label "Produsen Data City Code" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mit:last_sync a rdf:Property ;
+    rdfs:label "Last Sync" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mit:created_at a rdf:Property ;
+    rdfs:label "Created At" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mit:updated_at a rdf:Property ;
+    rdfs:label "Updated At" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mit:status a rdf:Property ;
+    rdfs:label "Status" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mit:submission_period a rdf:Property ;
+    rdfs:label "Submission Period" ;
+    rdfs:domain mit:MasterIndikators ;
+    rdfs:range xsd:string .
+
+mic1:id a rdf:Property ;
+    rdfs:label "ID" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mic1:id_mskeg a rdf:Property ;
+    rdfs:label "ID MSKEG" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mic1:nama a rdf:Property ;
+    rdfs:label "Nama" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mic1:konsep a rdf:Property ;
+    rdfs:label "Konsep" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mic1:definisi a rdf:Property ;
+    rdfs:label "Definisi" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mic1:produsen_data_name a rdf:Property ;
+    rdfs:label "Produsen Data Name" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mic1:produsen_data_province_code a rdf:Property ;
+    rdfs:label "Produsen Data Province Code" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mic1:produsen_data_city_code a rdf:Property ;
+    rdfs:label "Produsen Data City Code" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mic1:last_sync a rdf:Property ;
+    rdfs:label "Last Sync" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mic1:created_at a rdf:Property ;
+    rdfs:label "Created At" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mic1:updated_at a rdf:Property ;
+    rdfs:label "Updated At" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mic1:status a rdf:Property ;
+    rdfs:label "Status" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mic1:submission_period a rdf:Property ;
+    rdfs:label "Submission Period" ;
+    rdfs:domain mic1:MasterIndikatorsCopy1 ;
+    rdfs:range xsd:string .
+
+mkg:id a rdf:Property ;
+    rdfs:label "ID" ;
+    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:range xsd:string .
+
+mkg:periode_input a rdf:Property ;
+    rdfs:label "Periode Input" ;
+    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:range xsd:string .
+
+mkg:judul_kegiatan a rdf:Property ;
+    rdfs:label "Judul Kegiatan" ;
+    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:range xsd:string .
+
+mkg:tahun_kegiatan a rdf:Property ;
+    rdfs:label "Tahun Kegiatan" ;
+    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:range xsd:string .
+
+mkg:jenis_statistik a rdf:Property ;
+    rdfs:label "Jenis Statistik" ;
+    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:range xsd:string .
+
+mkg:cara_pengumpulan_data a rdf:Property ;
+    rdfs:label "Cara Pengumpulan Data" ;
+    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:range xsd:string .
+
+mkg:pj_jabatan a rdf:Property ;
+    rdfs:label "PJ Jabatan" ;
+    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:range xsd:string .
+
+mkg:tujuan_kegiatan a rdf:Property ;
+    rdfs:label "Tujuan Kegiatan" ;
+    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:range xsd:string .
+
+mkg:status a rdf:Property ;
+    rdfs:label "Status" ;
+    rdfs:domain mkg:MasterKegiatans ;
+    rdfs:range xsd:string .
+
+mkg:produsen_data_name a rdf:Property ;
+    rdfs:label "Produsen Data Name" ;
+    rdfs:domain mkg:MasterKe

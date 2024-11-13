@@ -1,0 +1,66 @@
+Berikut adalah contoh ontologi `.ttl` berdasarkan tabel-tabel yang Anda berikan:
+
+```ttl
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+<http://example.org/master_indikators>
+  a rf:simpleType .
+  rdfs:label "Master Indikator" .
+
+<http://example.org/master_indikators_copy1>
+  a rf:simpleType .
+  rdfs:label "Master Indikator Copy 1" .
+
+<http://example.org/master_kegiatans>
+  a rf:simpleType .
+  rdfs:label "Master Kegiatan" .
+
+<http://example.org/master_kegiatans_copy1>
+  a rf:simpleType .
+  rdfs:label "Master Kegiatan Copy 1" .
+
+<http://example.org/metadata_variabels>
+  a rf:simpleType .
+  rdfs:label "Metadata Variabel" .
+
+<http://example.org/standar_data_statistik_nasionals>
+  a rf:simpleType .
+  rdfs:label "Standar Data Statistik Nasional" .
+
+<http://example.org/master_indikators_id>
+  rdf:type rdf:Property .
+  rdfs:label "ID Indikator" .
+  
+<http://example.org/master_kegiatans_id>
+  rdf:type rdf:Property .
+  rdfs:label "ID Kegiatan" .
+
+<http://example.org/standar_data_statistik_nasionals_kodeSds>
+  rdf:type rdf:Property .
+  rdfs:label "Kode SDs" .
+
+<http://example.org/master_indikators_id_mskeg>
+  rdf:type rdf:Property .
+  rdfs:label "ID MSKEG Indikator" .
+
+<http://example.org/metadata_variabels_id_mskeg>
+  rdf:type rdf:Property .
+  rdfs:label "ID MSKEG Variabel" .
+
+<http://example.org/master_kegiatans_produen_data_name>
+  rdf:type rdf:Property .
+  rdfs:label "Nama Produsen Data Kegiatan" .
+
+<http://example.org/standar_data_statistik_nasionals_satuun>
+  rdf:type rdf:Property .
+  rdfs:label "Satuan SDs" .
+```
+
+Dalam ontologi di atas, kita menggunakan RDF Schema untuk mendeskripsikan struktur data dari tabel-tabel yang Anda berikan. Pada bagian `rdf:type`, kita mendefinisikan properti `simpleType` untuk mendeskripsikan jenis data masing-masing table.
+
+Pada bagian `rdfs:label`, kita mendeskripsikan nama table atau entitas dengan menggunakan label yang lebih singkat dan jelas.
+
+Dalam bagian `rdf:type`, kita mendefinisikan relasi antara properti dan entitasnya, misalnya `master_indikators_id` memiliki type `rdf:Property`.
+
+Namun perlu diingat bahwa pada contoh di atas hanya menggunakan properti dasar dari RDF. Pada prakteknya, Anda dapat menambahkan lebih banyak properti dan relasi untuk mendeskripsikan struktur data dengan lebih detail.

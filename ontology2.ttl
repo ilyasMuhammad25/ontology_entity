@@ -1,0 +1,131 @@
+# Base Ontology
+@prefix mfg: <http://example.org/manufacturing#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+
+<#Mapping_master_indikators> rr:logicalTable [ rr:sqlQuery "SELECT * FROM master_indikators" ] .
+
+<#Mapping_master_indikators_copy1> rr:logicalTable [ rr:sqlQuery "SELECT * FROM master_indikators_copy1" ] .
+
+<#Mapping_master_kegiatans> rr:logicalTable [ rr:sqlQuery "SELECT * FROM master_kegiatans" ] .
+
+<#Mapping_standar_data_statistik_nasionals> rr:logicalTable [ rr:sqlQuery "SELECT * FROM standar_data_statistik_nasionals" ] .
+
+mfg:hasCara_pengumpulan_data a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_kegiatans .
+
+mfg:hasCreated_at a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1,
+        mfg:master_kegiatans .
+
+mfg:hasDefinisi a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1,
+        mfg:standar_data_statistik_nasionals .
+
+mfg:hasId a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1,
+        mfg:master_kegiatans,
+        mfg:standar_data_statistik_nasionals .
+
+mfg:hasId_mskeg a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1 .
+
+mfg:hasJenis_statistik a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_kegiatans .
+
+mfg:hasJudul_kegiatan a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_kegiatans .
+
+mfg:hasKlasifikasiisian a owl:DatatypeProperty ;
+    rdfs:domain mfg:standar_data_statistik_nasionals .
+
+mfg:hasKlasifikasipenyajian a owl:DatatypeProperty ;
+    rdfs:domain mfg:standar_data_statistik_nasionals .
+
+mfg:hasKodesds a owl:DatatypeProperty ;
+    rdfs:domain mfg:standar_data_statistik_nasionals .
+
+mfg:hasKonsep a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1,
+        mfg:standar_data_statistik_nasionals .
+
+mfg:hasLast_sync a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1,
+        mfg:master_kegiatans .
+
+mfg:hasNama a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1 .
+
+mfg:hasNamadata a owl:DatatypeProperty ;
+    rdfs:domain mfg:standar_data_statistik_nasionals .
+
+mfg:hasPeriode_input a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_kegiatans .
+
+mfg:hasPj_jabatan a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_kegiatans .
+
+mfg:hasProdusen_data_city_code a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1,
+        mfg:master_kegiatans .
+
+mfg:hasProdusen_data_name a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1,
+        mfg:master_kegiatans .
+
+mfg:hasProdusen_data_province_code a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1,
+        mfg:master_kegiatans .
+
+mfg:hasSatuan a owl:DatatypeProperty ;
+    rdfs:domain mfg:standar_data_statistik_nasionals .
+
+mfg:hasStatus a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1,
+        mfg:master_kegiatans .
+
+mfg:hasSubmission_period a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1 .
+
+mfg:hasTahun_kegiatan a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_kegiatans .
+
+mfg:hasTujuan_kegiatan a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_kegiatans .
+
+mfg:hasUkuran a owl:DatatypeProperty ;
+    rdfs:domain mfg:standar_data_statistik_nasionals .
+
+mfg:hasUpdated_at a owl:DatatypeProperty ;
+    rdfs:domain mfg:master_indikators,
+        mfg:master_indikators_copy1,
+        mfg:master_kegiatans .
+
+mfg:standar_data_statistik_nasionals a owl:Class ;
+    rdfs:label "standar_data_statistik_nasionals" .
+
+mfg:master_indikators a owl:Class ;
+    rdfs:label "master_indikators" .
+
+mfg:master_indikators_copy1 a owl:Class ;
+    rdfs:label "master_indikators_copy1" .
+
+mfg:master_kegiatans a owl:Class ;
+    rdfs:label "master_kegiatans" .
+
+
+# R2RML Mappings
+# Sample Data Instances

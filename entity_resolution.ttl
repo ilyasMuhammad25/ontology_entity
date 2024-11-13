@@ -1,0 +1,26 @@
+# Entity Resolution Results
+# Total Classes: 4
+# Similar Pairs Found: 1
+# Detailed Similarity Scores:
+
+# master_indikators - master_indikators_copy1:
+#   Name Similarity: 1.00
+#   Column Overlap: 1.00
+#   Type Match Ratio: 1.00
+#   Overall Score: 1.00
+#   Common Columns: created_at, id, last_sync, updated_at, submission_period, status, produsen_data_province_code, konsep, id_mskeg, nama, produsen_data_name, definisi, produsen_data_city_code
+
+@prefix mfg: <http://example.org/manufacturing#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+mfg:master_indikators a owl:Class ;
+    rdfs:comment """Similarity Analysis:
+                            Name Similarity: 1.00
+                            Column Overlap: 1.00
+                            Type Match Ratio: 1.00
+                            Overall Score: 1.00""" ;
+    owl:equivalentClass mfg:master_indikators_copy1 .
+
+mfg:master_indikators_copy1 a owl:Class .
+

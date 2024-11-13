@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ontology and Knowledge Graph Constructor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link href="https://unpkg.com/vis-network/styles/vis-network.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .navbar {
+            background-color: #4CAF50;
+            overflow: hidden;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #45a049;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #mynetwork {
+            width: 100%;
+            height: 500px;
+            border: 1px solid lightgray;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/config">Config</a>
+        <a href="/entity">Entity Resolution</a>
+        <a href="/ask">Ontology</a>
+    </div>
+
+    <h1>Construct and Visualize Ontology</h1>
+
+    <!-- Form to trigger ontology construction -->
+    <form id="constructOntologyForm">
+        <button type="submit">Construct Ontology</button>
+    </form>
+
+    <!-- Visualization container -->
+    <div id="mynetwork"></div>
+
+    <script>
+        // Handle form submission
+        document.getElementById('constructOntologyForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Make a POST request to the Flask route
+            fetch('/construct_ontology', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Extract nodes and edges from the response
+                const nodes = new vis.DataSet(data.nodes);
+                const edges = new vis.DataSet(data.edges);
+
+                // Create a network
+                const container = document.getElementById('mynetwork');
+                const networkData = {
+                    nodes: nodes,
+                    edges: edges
+                };
+                const options = {
+                    nodes: {
+                        shape: 'dot',
+                        size: 10,
+                        font: {
+                            size: 12
+                        }
+                    },
+                    edges: {
+                        arrows: {
+                            to: { enabled: true }
+                        },
+                        font: {
+                            align: 'top'
+                        }
+                    }
+                };
+                const network = new vis.Network(container, networkData, options);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
