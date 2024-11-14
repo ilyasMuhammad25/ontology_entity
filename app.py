@@ -412,7 +412,7 @@ def generate(payload):
 def ask_gemini():
     try:
         # Configure Gemini API
-        genai.configure(api_key='AIzaSyA1ZHwqVwzj1z9A8lWNhlXZfX5-sby__8A')
+        genai.configure(api_key='')
         model = genai.GenerativeModel('gemini-pro')
         
         # Get database metadata
