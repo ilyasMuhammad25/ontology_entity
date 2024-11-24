@@ -1,201 +1,1426 @@
-```ttl
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix mit: <http://example.org/master_indikators#> .
-@prefix mic1: <http://example.org/master_indikators_copy1#> .
-@prefix mkg: <http://example.org/master_kegiatans#> .
-@prefix sds: <http://example.org/standar_data_statistik_nasionals#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix cs: <http://example.org/customersatisfaction#> .
 
-# Define classes
-mit:MasterIndikators a rdfs:Class ;
-    rdfs:label "Master Indikator" .
+# ============= CLASS DEFINITIONS =============
+# Classes adalah template/blueprint untuk instances
+cs:Master_indikators a owl:Class ;
+    rdfs:label "Master_indikators" ;
+    rdfs:comment "A master_indikators in the system" .
 
-mic1:MasterIndikatorsCopy1 a rdfs:Class ;
-    rdfs:label "Master Indikator Copy 1" .
+cs:Master_kegiatans a owl:Class ;
+    rdfs:label "Master_kegiatans" ;
+    rdfs:comment "A master_kegiatans in the system" .
 
-mkg:MasterKegiatans a rdfs:Class ;
-    rdfs:label "Master Kegiatan" .
+cs:Metadata_variabels a owl:Class ;
+    rdfs:label "Metadata_variabels" ;
+    rdfs:comment "A metadata_variabels in the system" .
 
-sds:StandarDataStatistikNasional a rdfs:Class ;
-    rdfs:label "Standar Data Statistik Nasional" .
+cs:Standar_data_statistik_nasionals a owl:Class ;
+    rdfs:label "Standar_data_statistik_nasionals" ;
+    rdfs:comment "A standar_data_statistik_nasionals in the system" .
 
-# Define properties
-mit:id a rdf:Property ;
-    rdfs:label "ID" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+# ============= PROPERTY DEFINITIONS =============
+# Object Properties (menghubungkan instances dengan instances lain)
+# Data Properties (menghubungkan instances dengan nilai literal)
+cs:id a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "id" .
 
-mit:id_mskeg a rdf:Property ;
-    rdfs:label "ID MSKEG" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+cs:id_mskeg a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "id mskeg" .
 
-mit:nama a rdf:Property ;
-    rdfs:label "Nama" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+cs:nama a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "nama" .
 
-mit:konsep a rdf:Property ;
-    rdfs:label "Konsep" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+cs:konsep a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "konsep" .
 
-mit:definisi a rdf:Property ;
-    rdfs:label "Definisi" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+cs:definisi a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "definisi" .
 
-mit:produsen_data_name a rdf:Property ;
-    rdfs:label "Produsen Data Name" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+cs:produsen_data_name a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "produsen data name" .
 
-mit:produsen_data_province_code a rdf:Property ;
-    rdfs:label "Produsen Data Province Code" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+cs:produsen_data_province_code a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "produsen data province code" .
 
-mit:produsen_data_city_code a rdf:Property ;
-    rdfs:label "Produsen Data City Code" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+cs:produsen_data_city_code a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "produsen data city code" .
 
-mit:last_sync a rdf:Property ;
-    rdfs:label "Last Sync" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+cs:last_sync a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "last sync" .
 
-mit:created_at a rdf:Property ;
-    rdfs:label "Created At" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+cs:created_at a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "created at" .
 
-mit:updated_at a rdf:Property ;
-    rdfs:label "Updated At" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+cs:updated_at a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "updated at" .
 
-mit:status a rdf:Property ;
-    rdfs:label "Status" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+cs:status a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "status" .
 
-mit:submission_period a rdf:Property ;
-    rdfs:label "Submission Period" ;
-    rdfs:domain mit:MasterIndikators ;
-    rdfs:range xsd:string .
+cs:submission_period a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_indikators ;
+    rdfs:range xsd:string ;
+    rdfs:label "submission period" .
 
-mic1:id a rdf:Property ;
-    rdfs:label "ID" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:id a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "id" .
 
-mic1:id_mskeg a rdf:Property ;
-    rdfs:label "ID MSKEG" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:periode_input a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "periode input" .
 
-mic1:nama a rdf:Property ;
-    rdfs:label "Nama" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:judul_kegiatan a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "judul kegiatan" .
 
-mic1:konsep a rdf:Property ;
-    rdfs:label "Konsep" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:tahun_kegiatan a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "tahun kegiatan" .
 
-mic1:definisi a rdf:Property ;
-    rdfs:label "Definisi" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:jenis_statistik a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "jenis statistik" .
 
-mic1:produsen_data_name a rdf:Property ;
-    rdfs:label "Produsen Data Name" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:cara_pengumpulan_data a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "cara pengumpulan data" .
 
-mic1:produsen_data_province_code a rdf:Property ;
-    rdfs:label "Produsen Data Province Code" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:pj_jabatan a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "pj jabatan" .
 
-mic1:produsen_data_city_code a rdf:Property ;
-    rdfs:label "Produsen Data City Code" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:tujuan_kegiatan a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "tujuan kegiatan" .
 
-mic1:last_sync a rdf:Property ;
-    rdfs:label "Last Sync" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:status a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "status" .
 
-mic1:created_at a rdf:Property ;
-    rdfs:label "Created At" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:produsen_data_name a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "produsen data name" .
 
-mic1:updated_at a rdf:Property ;
-    rdfs:label "Updated At" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:produsen_data_province_code a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "produsen data province code" .
 
-mic1:status a rdf:Property ;
-    rdfs:label "Status" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:produsen_data_city_code a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "produsen data city code" .
 
-mic1:submission_period a rdf:Property ;
-    rdfs:label "Submission Period" ;
-    rdfs:domain mic1:MasterIndikatorsCopy1 ;
-    rdfs:range xsd:string .
+cs:last_sync a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "last sync" .
 
-mkg:id a rdf:Property ;
-    rdfs:label "ID" ;
-    rdfs:domain mkg:MasterKegiatans ;
-    rdfs:range xsd:string .
+cs:created_at a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "created at" .
 
-mkg:periode_input a rdf:Property ;
-    rdfs:label "Periode Input" ;
-    rdfs:domain mkg:MasterKegiatans ;
-    rdfs:range xsd:string .
+cs:updated_at a owl:DatatypeProperty ;
+    rdfs:domain cs:Master_kegiatans ;
+    rdfs:range xsd:string ;
+    rdfs:label "updated at" .
 
-mkg:judul_kegiatan a rdf:Property ;
-    rdfs:label "Judul Kegiatan" ;
-    rdfs:domain mkg:MasterKegiatans ;
-    rdfs:range xsd:string .
+cs:id a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "id" .
 
-mkg:tahun_kegiatan a rdf:Property ;
-    rdfs:label "Tahun Kegiatan" ;
-    rdfs:domain mkg:MasterKegiatans ;
-    rdfs:range xsd:string .
+cs:id_mskeg a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "id mskeg" .
 
-mkg:jenis_statistik a rdf:Property ;
-    rdfs:label "Jenis Statistik" ;
-    rdfs:domain mkg:MasterKegiatans ;
-    rdfs:range xsd:string .
+cs:nama a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "nama" .
 
-mkg:cara_pengumpulan_data a rdf:Property ;
-    rdfs:label "Cara Pengumpulan Data" ;
-    rdfs:domain mkg:MasterKegiatans ;
-    rdfs:range xsd:string .
+cs:konsep a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "konsep" .
 
-mkg:pj_jabatan a rdf:Property ;
-    rdfs:label "PJ Jabatan" ;
-    rdfs:domain mkg:MasterKegiatans ;
-    rdfs:range xsd:string .
+cs:definisi a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "definisi" .
 
-mkg:tujuan_kegiatan a rdf:Property ;
-    rdfs:label "Tujuan Kegiatan" ;
-    rdfs:domain mkg:MasterKegiatans ;
-    rdfs:range xsd:string .
+cs:produsen_data_name a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "produsen data name" .
 
-mkg:status a rdf:Property ;
-    rdfs:label "Status" ;
-    rdfs:domain mkg:MasterKegiatans ;
-    rdfs:range xsd:string .
+cs:produsen_data_province_code a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "produsen data province code" .
 
-mkg:produsen_data_name a rdf:Property ;
-    rdfs:label "Produsen Data Name" ;
-    rdfs:domain mkg:MasterKe
+cs:produsen_data_city_code a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "produsen data city code" .
+
+cs:last_sync a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "last sync" .
+
+cs:created_at a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "created at" .
+
+cs:updated_at a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "updated at" .
+
+cs:status a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "status" .
+
+cs:submission_period a owl:DatatypeProperty ;
+    rdfs:domain cs:Metadata_variabels ;
+    rdfs:range xsd:string ;
+    rdfs:label "submission period" .
+
+cs:id a owl:DatatypeProperty ;
+    rdfs:domain cs:Standar_data_statistik_nasionals ;
+    rdfs:range xsd:string ;
+    rdfs:label "id" .
+
+cs:kodeSds a owl:DatatypeProperty ;
+    rdfs:domain cs:Standar_data_statistik_nasionals ;
+    rdfs:range xsd:string ;
+    rdfs:label "kodeSds" .
+
+cs:namaData a owl:DatatypeProperty ;
+    rdfs:domain cs:Standar_data_statistik_nasionals ;
+    rdfs:range xsd:string ;
+    rdfs:label "namaData" .
+
+cs:konsep a owl:DatatypeProperty ;
+    rdfs:domain cs:Standar_data_statistik_nasionals ;
+    rdfs:range xsd:string ;
+    rdfs:label "konsep" .
+
+cs:definisi a owl:DatatypeProperty ;
+    rdfs:domain cs:Standar_data_statistik_nasionals ;
+    rdfs:range xsd:string ;
+    rdfs:label "definisi" .
+
+cs:klasifikasiPenyajian a owl:DatatypeProperty ;
+    rdfs:domain cs:Standar_data_statistik_nasionals ;
+    rdfs:range xsd:string ;
+    rdfs:label "klasifikasiPenyajian" .
+
+cs:klasifikasiIsian a owl:DatatypeProperty ;
+    rdfs:domain cs:Standar_data_statistik_nasionals ;
+    rdfs:range xsd:string ;
+    rdfs:label "klasifikasiIsian" .
+
+cs:ukuran a owl:DatatypeProperty ;
+    rdfs:domain cs:Standar_data_statistik_nasionals ;
+    rdfs:range xsd:string ;
+    rdfs:label "ukuran" .
+
+cs:satuan a owl:DatatypeProperty ;
+    rdfs:domain cs:Standar_data_statistik_nasionals ;
+    rdfs:range xsd:string ;
+    rdfs:label "satuan" .
+
+# ============= INSTANCE DATA =============
+# Instances dari Master_indikators Class
+cs:Master_indikators_2 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "2"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Jumlah Penduduk Sensus Penduduk 2020" ;    # Menggunakan Data Property
+    cs:konsep "\"Penduduk\"" ;    # Menggunakan Data Property
+    cs:definisi "Jumlah penduduk adalah ukuran absolut dari penduduk, dinyatakan dalam satuan jiwa. Penduduk Hasil Sensus Penduduk 2020 adalah penduduk menurut alamat domisili; yaitu semua orang (WNI dan WNA) yang tinggal di wilayah Negara Kesatuan Republik Indonesia selama satu tahun atau lebih dan atau mereka yang berdomisili kurang dari satu tahun tetapi bertujuan untuk menetap lebih dari satu tahun" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:06:59" ;    # Menggunakan Data Property
+    cs:created_at "2021-07-18 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:06:59" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_3 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "3"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Lama menginap tamu" ;    # Menggunakan Data Property
+    cs:konsep "\"Lama menginap tamu\"" ;    # Menggunakan Data Property
+    cs:definisi "Lama menginap tamu adalah rata-rata lama menginap tamu yang dibedakan ke dalam tamu asing, domestik, asing dan domestik" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:00" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:00" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_4 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "3"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Tamu per kamar" ;    # Menggunakan Data Property
+    cs:konsep "\"Tamu per kamar\"" ;    # Menggunakan Data Property
+    cs:definisi "Tamu per kamar adalah rata-rata banyaknya tamu dalam satu kamar yang disewa yang dibedakan ke dalam tamu asing, domestik, asing dan domestic" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:00" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:00" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_5 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "3"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Tingkat Penghunian Kamar (TPK) Hotel" ;    # Menggunakan Data Property
+    cs:konsep "\"Tingkat Penghunian Kamar (TPK) Hotel\"" ;    # Menggunakan Data Property
+    cs:definisi "Tingkat Penghunian Kamar (TPK) hotel adalah perbandingan antara banyaknya malam kamar yang terpakai dengan banyaknya malam kamar yang tersedia." ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:00" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:00" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_6 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "3"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "TPTT Hotel" ;    # Menggunakan Data Property
+    cs:konsep "\"Tingkat Pemakaian Tempat Tidur (TPTT) Hotel\"" ;    # Menggunakan Data Property
+    cs:definisi "Tingkat Pemakaian Tempat Tidur (TPTT) Hotel adalah perbandingan antara jumlah tempat tidur hotel yang telah
+disewakan/ digunakan 
+dengan jumlah tempat tidur yang 
+tersedia di hotel itu
+" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:00" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:00" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_7 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "3"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Malam tamu menignap" ;    # Menggunakan Data Property
+    cs:konsep "\"Malam tamu menignap\"" ;    # Menggunakan Data Property
+    cs:definisi "Malam tamu menginap adalah banyaknya tamu yang menginap setiap malam" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:00" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:00" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_8 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "3"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Malam kamar terpakai" ;    # Menggunakan Data Property
+    cs:konsep "\"Malam kamar terpakai\"" ;    # Menggunakan Data Property
+    cs:definisi "Malam kamar terpakai adalah banyaknya kamar yang terpakai atau terjual setiap malam" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:00" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:00" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_12 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "8"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Persentase Penduduk Lansia Menurut Provinsi dan Pendidikan Tertinggi yang Ditamatkan" ;    # Menggunakan Data Property
+    cs:konsep "\"Pendidikan tertinggi yang ditamatkan\"" ;    # Menggunakan Data Property
+    cs:definisi "Jenjang pendidikan tertinggi yang ditamatkan oleh seseorang, yang ditandai dengan sertifikat/ijazah" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:03" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:03" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_13 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "8"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Persentase Penduduk Lanjut Usia" ;    # Menggunakan Data Property
+    cs:konsep "\"Persentase Penduduk \"" ;    # Menggunakan Data Property
+    cs:definisi "Perbandingan jumlah penduduk usia 60 tahun ke atas dengan jumlah seluruh penduduk." ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:03" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:03" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_14 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "8"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Rasio Ketergantungan Penduduk Lansia" ;    # Menggunakan Data Property
+    cs:konsep "\"Rasio Ketergantungan Penduduk Lansia\"" ;    # Menggunakan Data Property
+    cs:definisi "perbandingan antara jumlah penduduk lansia (60 tahun ke atas) dengan jumlah penduduk usia 15-59 tahun. Menggambarkan seberapa besar beban yang harus ditanggung penduduk usia produktif untuk membiayai hidup penduduk lansia" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:03" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:03" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_15 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "8"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Persentase Lansia yang mengalami keluhan kesehatan selama sebulan terakhir" ;    # Menggunakan Data Property
+    cs:konsep "\"Keluhan kesehatan\"" ;    # Menggunakan Data Property
+    cs:definisi "keadaan lansia yang mengalami gangguan kesehatan atau kejiwaan, baik karena gangguan/penyakit
+yang sering dialami, seperti: panas, batuk, pilek, diare,sakit kepala, maupun karena penyakit akut, penyakit kronis (meskipun selama
+sebulan terakhir tidak mempunyai keluhan), karena kecelakaan, kriminalitas atau keluhan kesehatan lainnya. Keluhan yang dimaksud adalah keluhan fisik maupun psikis.
+" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:03" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:03" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_16 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "8"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Angka Kesakitan Penduduk Lansia" ;    # Menggunakan Data Property
+    cs:konsep "\"Keluhan kesehatan dan terganggu aktivitas\"" ;    # Menggunakan Data Property
+    cs:definisi "keadaan lansia yang mengalami gangguan kesehatan atau kejiwaan, baik karena gangguan/penyakit
+yang sering dialami dan terganggunya aktivitas sehari-hari akibat keluhan kesehatan tersebut
+" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:03" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:03" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_17 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "8"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Persentase Penduduk Lansia yang Memiliki Jaminan Kesehatan" ;    # Menggunakan Data Property
+    cs:konsep "\"Jaminan kesehatan\"" ;    # Menggunakan Data Property
+    cs:definisi "Jaminan dalam bentuk kartu atau apapun yang dapat digunakan untuk pembiayaan kesehatan jika nama yang tertera dalam kartu atau lainnya melakukan perawatan kesehatan seperti ke dokter, puskesmas, rumah sakit,  dan fasilitas kesehatan lainnya." ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:03" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:03" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_18 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "8"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Angka Melek Huruf Penduduk Lansia" ;    # Menggunakan Data Property
+    cs:konsep "\"Angka Melek Huruf\"" ;    # Menggunakan Data Property
+    cs:definisi "proporsi penduduk lansia yang dapat membaca dan menulis huruf Latin atau huruf lainnya." ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:03" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:03" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_19 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "9"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Angka Partisipasi Kasar (APK) SD, SMP, SM, PT (19-24 tahun) dan PT (19-23 tahun)" ;    # Menggunakan Data Property
+    cs:konsep "\"Angka Partisipasi Kasar (APK) SD, SMP, SM, PT (19-24 tahun) dan PT (19-23 tahun)\"" ;    # Menggunakan Data Property
+    cs:definisi "Proporsi anak sekolah pada suatu jenjang tertentu terhadap penduduk pada kelompok usia tertentu. Sejak tahun 2007 Pendidikan Non Formal (Paket A, Paket B, dan Paket C) turut diperhitungkan" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:04" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:04" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_20 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "9"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Angka Partisipasi Sekolah (APS) 7-12 tahun, 13-15 tahun, 16-18 tahun, 19-24 tahun dan 19-23 tahun" ;    # Menggunakan Data Property
+    cs:konsep "\"Angka Partisipasi Sekolah (APS) 7-12 tahun, 13-15 tahun, 16-18 tahun, 19-24 tahun dan 19-23 tahun\"" ;    # Menggunakan Data Property
+    cs:definisi "Proporsi dari semua anak yang masih sekolah pada suatu kelompok umur tertentu terhadap penduduk dengan kelompok umur yang sesuai. Sejak Tahun 2009, Pendidikan Non Formal (Paket A, Paket B, dan Paket C) turut diperhitungkan" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:04" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:04" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_21 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "9"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Tingkat kelulusan Sekolah" ;    # Menggunakan Data Property
+    cs:konsep "\"Tingkat kelulusan Sekolah\"" ;    # Menggunakan Data Property
+    cs:definisi "presentase penduduk yang menamatkan pendidikan pada suatu jenjang pendidikan tertentu sesuai kelompok usia referensi pada jenjang pendidikan tersebut." ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:04" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:04" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_22 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "9"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Angka Partisipasi Murni (APM) SD, SMP, SM, PT (19-24 tahun), dan PT (19-23 tahun)" ;    # Menggunakan Data Property
+    cs:konsep "\"Angka Partisipasi Murni (APM) SD, SMP, SM, PT (19-24 tahun), dan PT (19-23 tahun)\"" ;    # Menggunakan Data Property
+    cs:definisi "Proporsi penduduk pada kelompok umur jenjang pendidikan tertentu yang masih bersekolah terhadap penduduk pada kelompok umur tersebut. Sejak tahun 2007, Pendidikan Non Formal (Paket A, Paket B, dan Paket C) turut diperhitungkan." ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:04" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:04" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_23 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "9"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Angka Partisipasi Murni (APM) PAUD (3-5 tahun dan 3-6 tahun)" ;    # Menggunakan Data Property
+    cs:konsep "\"Angka Partisipasi Murni (APM) PAUD (3-5 tahun dan 3-6 tahun)\"" ;    # Menggunakan Data Property
+    cs:definisi "Proporsi penduduk pada kelompok umur tertentu (3-5 tahun atau 3-6 tahun) yang terdaftar dalam PAUD terhadap penduduk pada kelompok umur tersebut" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:04" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:04" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+cs:Master_indikators_24 a cs:Master_indikators ;    # Instance dari class Master_indikators
+    cs:id_mskeg "9"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Angka Partisipasi Kasar (APK) PAUD (3-5 tahun dan 3-6 tahun)" ;    # Menggunakan Data Property
+    cs:konsep "\"Angka Partisipasi Kasar (APK) PAUD (3-5 tahun dan 3-6 tahun)\"" ;    # Menggunakan Data Property
+    cs:definisi "Proporsi anak yang terdaftar dalam Pendidikan Anak Usia Dini (Taman Kanak-kanak, Bustanul Athfal/Raudhatul Athfal, PAUD terintegrasi BKB/Taman Posyandu, PAUD-TAM, PAUD-PAK, PAUD-BIA, TKQ, dll.) terhadap penduduk pada kelompok usia tertentu (3-5 tahun atau 3-6 tahun)." ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:07:04" ;    # Menggunakan Data Property
+    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:07:04" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2020" ;    # Menggunakan Data Property .
+
+# Instances dari Master_kegiatans Class
+cs:Master_kegiatans_1 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2014" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Kajian Etikolegal Pengaturan Fasilitas Pelayanan Kesehatan Dasar (klinik) Berbasis Profesionalisme Profesi" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2013"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK SEKTORAL" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Peneliti" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Mempelajari jenis dan pola fasilitas pelayanan kesehatan yang menerapkan hubungan etikolegal antara penyedia layanan kesehatan dengan masyarakat pengguna layanan." ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "ipds3500" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "35" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "3500" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 12:59:10" ;    # Menggunakan Data Property
+    cs:created_at "2014-09-17 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2014-12-29 17:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_2 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "1970" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Sensus Penduduk" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2000"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "PENCACAHAN_LENGKAP" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Lukito, P, rini S, Tati, Wiek. K" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Menyajikan data dasar kependudukan sampai wilayah administrasi terkecil" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Lukito, P, rini S, Tati, Wiek. K" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:38:25" ;    # Menggunakan Data Property
+    cs:created_at "1970-01-01 00:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "1970-01-01 00:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_3 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2016" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Survei Tingkat Penghunian Kamar Hotel (VHTS)" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2016"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "SURVEI" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Subdit. Stat. Pariwisata" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Mengumpulkan data tingkat penghunian kamar hotel/akomodasi, rata-rata lamanya tamu menginap, dan jumlah tamu yang yang menginap di hotel/akomodasi. Data/informasi ini diharapkan dapat dijadikan landasan perencanaan dan evaluasi, baik oleh instansi pemerintah maupun swasta, untuk menentukan kebijakan terkait usaha tersebut." ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Subdit. Stat. Pariwisata" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:16:51" ;    # Menggunakan Data Property
+    cs:created_at "2016-12-27 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:16:51" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_6 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2014" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Pemetaan sosial masyarakat di wilayah Ring 1 Holcim" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2012"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK KHUSUS" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Ketua LPPM ITS" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Memperoleh informasi sosial ekonomi masyarakat." ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "ipds3500" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "35" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "3500" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 12:59:08" ;    # Menggunakan Data Property
+    cs:created_at "2014-09-18 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2014-12-10 17:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_7 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2016" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Penyusunan PDB Pengeluaran Komponen Pengeluaran Konsumsi LNPRT (PK-LNPRT)" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2016"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "KOMPILASI_PRODUK_ADMINISTRASI" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Subdit. Neraca Rumah Tangga dan Institusi Nirlaba" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Memperoleh data pengeluaran konsumsi akhir LNPRT (PKLNPRT)" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Subdit. Neraca Rumah Tangga dan Institusi Nirlaba" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:17:35" ;    # Menggunakan Data Property
+    cs:created_at "2016-12-27 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:17:35" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_8 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2014" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Penelitian Profil Gender di Universitas Negeri Gorontalo" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2014"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK KHUSUS" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Ketua Lembaga Penelitian Universitas Negeri Gorontalo
+" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "1. Mendeskripsikan profil gender civitas akademika dan tenaga penunjang akademik di Universitas Negeri Gorontalo
+2. Mengkaji peran gender dalam kebijakan manajemen di Universitas Negeri Gorontalo" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "ipds7500" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "75" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "7571" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 12:57:34" ;    # Menggunakan Data Property
+    cs:created_at "2014-10-25 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2014-11-26 17:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_9 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2014" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Analisis faktor-faktor MotivasiKerja Terhadap Prestasi Kerja Karyawan PT. Batanghari Barisan Padang" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2004"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK KHUSUS" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Peneliti" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Menganalisis faktor-faktor motivasi kerja yang terdiri dari tiga kategori yaitu karakteristik individu, karakteristik pekerjaan, dan karakteristik lingkungan kerja;
+
+Memperoleh data untuk pengambilan keputusan peningkatan produktivitas dan kesejahteraan karyawan." ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "ipds1400" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "14" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "1471" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 12:57:36" ;    # Menggunakan Data Property
+    cs:created_at "2014-10-25 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2015-01-04 17:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_10 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "1970" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Kompilasi Data Statistik Indikator Kesejahteraan Rakyat" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2006"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Sub Direktorat Indikator Statistik" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Memberikan gambaran umum tentang tingkat perkembangan kesejahteraan rakyat Indonesia antar waktu dan perbandingannya antar 
+
+propinsi serta daerah tempat tinggal yang mencakup pengkajian bidang-bidang yang menjadi acuan dalam upaya peningkatan kualitas hidup, yaitu 
+
+kependudukan, kesehatan dan gizi, pendidikan, ketenagakerjaan, taraf dan pola konsumsi, perumahan serta sosial lainnya." ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Sub Direktorat Indikator Statistik" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:40:07" ;    # Menggunakan Data Property
+    cs:created_at "1970-01-01 00:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2012-06-11 17:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_11 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "1970" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Survei Sosial Ekonomi Nasional (SUSENAS) Kor (Tahunan)" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2002"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "SURVEI" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Sub Direktorat Statistik Rumah Tangga, Seksi Penyiapan Kegiatan Statistik" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "1. Tersedianya data pokok tentang kesejahteraan masyarakat; 
+2. Terhimpunnya data tentang konsumsi dan pengeluaran penduduk" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Sub Direktorat Statistik Rumah Tangga, Seksi Penyiapan Kegiatan Statistik" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:40:48" ;    # Menggunakan Data Property
+    cs:created_at "1970-01-01 00:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "1970-01-01 00:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_12 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2014" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Content Based Image Retrieval Sistem (CBIRS) Kayu Cendana dengan Transformasi Wavelet Diskret" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2013"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK KHUSUS" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Peneliti (Dosen)" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "-" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "ipds5300" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "53" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "5371" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 13:00:42" ;    # Menggunakan Data Property
+    cs:created_at "2014-08-13 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 06:00:42" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_13 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2014" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Analisis Pengaruh Learning Rate dan Momentum Pada Algoritma Dropagasi Balik Dalam Prediksi Kelainan Mata" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2013"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK KHUSUS" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Peneliti (Dosen)" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Jaringan saraf tiruan telah mampu melakukan analisis mata rabun dengan tingkat akurasinya sebesar 87,67 dengan performa 0,264 pada arsitektur pengujian 8-7-1" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "ipds5300" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "53" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "5371" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 13:00:23" ;    # Menggunakan Data Property
+    cs:created_at "2014-08-14 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 06:00:23" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_14 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2014" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Monitoring dan Evaluasi Stok dan Harga Bahan Pokok dan Barang Strategis lainnya" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2014"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK SEKTORAL" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Kepala Dinas Perindustrian dan Perdagangan Provinsi Kepulauan Bangka Belitung" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Mengetahui ketersediaan stok dan harga bahan pokok." ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "ipds1900" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "19" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "1900" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 12:57:51" ;    # Menggunakan Data Property
+    cs:created_at "2014-10-25 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2015-01-01 17:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_15 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2014" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Survei Data Pangan Siap Samtap yg Dikemas dengan Polistirena Busa (Styrofoam)" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2013"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK SEKTORAL" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Kasubdit andariStsasi Produk dan Bahan Berbahaya" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "- Mendapatkan data pangan siap santap yg dikemas dengan polistirena busa (styrofoam) - Data tersebut selanjutnyadigunakan untuk menetapkan pelarangan, pembatasan atau penggunaan kemasan pangan tersebut           " ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "ipds3100" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "31" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "3173" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 12:57:52" ;    # Menggunakan Data Property
+    cs:created_at "2014-10-25 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "1970-01-01 00:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_16 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2014" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Survei Kepuasan Pelanggan di Direktorat Inspeksi dan Sertifikasi Pangan" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2014"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK SEKTORAL" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Kasie Sertifikasi Produk" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "1. Mendapatkan gambaran mengenal kepuasan pelanggan atas pelayanan direkorat Inpeksi dan Sertifikasi Pangan. 2. Mendapatkan informasi yg tepat untuk dipergunakan meningkatkan kinerja dan pelayanan direkorat Inpeksi dan Sertifikasi Pangan" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "ipds3100" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "31" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "3173" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 12:57:53" ;    # Menggunakan Data Property
+    cs:created_at "2014-10-25 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "1970-01-01 00:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_17 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "1970" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Survei Statistik Keuangan Pemerintah Daerah Provinsi" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "1998"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "SURVEI" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Bagian Statistik Keuangan" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Menyediakan data Realisasi penerimaan, dan Realisasi Pengeluran Rutin dan Pembangunan Pemda Tingkat I secara berkala setiap 
+
+tahunnya" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Bagian Statistik Keuangan" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:39:37" ;    # Menggunakan Data Property
+    cs:created_at "1970-01-01 00:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2013-03-25 17:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_18 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "1970" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Survei Statistik Keuangan Pemerintah Daerah Kabupaten/Kota" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "1998"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "SURVEI" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Bagian Statistik Keuangan" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Menyediakan data realisasi penerimaan, dan realisasi pengeluaran rutin dan pembangunan Pemda Tk II secara berkala setiap tahun" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Bagian Statistik Keuangan" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:39:39" ;    # Menggunakan Data Property
+    cs:created_at "1970-01-01 00:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2013-03-25 17:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_19 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2009" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Survei Statistik Lembaga Keuangan" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2009"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "PENCACAHAN_LENGKAP" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Direktorat Statistik Keuangan, Teknologi Informasi dan Pariwisata, BPS Pusat" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Menyediakan data indikator usaha berbagai jenis kegiatan lembaga keuangan (Perbankan konvensional, Perbankan syariah, pasar 
+
+modal, perasuransian, dana pensiun, pegadaian, pedagang valuta asing dan perkoperasian) secara berkala setiap tahunnya.
+Menyediakan data laporan keuanga berupa neraca dan laporan laba/rugi berbagai jenis kegiatan lembaga keuangan secara berkala setiap tahunnya" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Direktorat Statistik Keuangan, Teknologi Informasi dan Pariwisata, BPS Pusat" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:37:57" ;    # Menggunakan Data Property
+    cs:created_at "2009-11-22 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "1970-01-01 00:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_20 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2014" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Analisis Kepuasan Kerja Terhadap Prestasi Kerja Karyawan PT. Batang Hari Barisan Padang" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2004"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK KHUSUS" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Peneliti" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "Menganalisis hubungan kepuasan kerja terhadap prestasi kerja karyawan, baik secara materi maupun non materi sebagai bahan informasi dan pertimbangan dari manajemen perusahaan dalam mengambil keputusan guna peningkatan produktivitas dan kesejahteraan karyawan." ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "ipds1400" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "14" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "1471" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 12:57:35" ;    # Menggunakan Data Property
+    cs:created_at "2014-10-25 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2014-12-19 17:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_21 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "1970" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Survei Angkatan Kerja Nasional (SAKERNAS)" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2006"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Aden Gultom" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Aden Gultom" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:38:30" ;    # Menggunakan Data Property
+    cs:created_at "1970-01-01 00:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "1970-01-01 00:00:00" ;    # Menggunakan Data Property .
+
+cs:Master_kegiatans_22 a cs:Master_kegiatans ;    # Instance dari class Master_kegiatans
+    cs:periode_input "2014" ;    # Menggunakan Data Property
+    cs:judul_kegiatan "Perancangan Sistem Informasi Kebencanaan Tsunami melalui Penyusunan Peta Kerawanan dan Jalur Evakuasi Bencana di Pesisir Kota Bengkulu" ;    # Menggunakan Data Property
+    cs:tahun_kegiatan "2013"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:jenis_statistik "STATISTIK KHUSUS" ;    # Menggunakan Data Property
+    cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
+    cs:pj_jabatan "Lektor Kepala" ;    # Menggunakan Data Property
+    cs:tujuan_kegiatan "- Menganalisa karakteristik daerah pesisir Kota Bengkulu terhadap resiko bencana tsunami melalui teknik dan analisis penginderaan jauh;
+- Menyusun dan merancang sistem informasi kebencanaan melalui pembuatan peta kerawanan resiko tsunami dan peta jalur evakuasi di Kota Bengkulu dengan SIG. " ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:produsen_data_name "ipds1700" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "17" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "1771" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 12:59:50" ;    # Menggunakan Data Property
+    cs:created_at "2014-08-25 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2015-01-01 17:00:00" ;    # Menggunakan Data Property .
+
+# Instances dari Metadata_variabels Class
+cs:Metadata_variabels_142639 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "32607"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "\" Kepuasan terhadap  biaya layanan\"" ;    # Menggunakan Data Property
+    cs:konsep "\"biaya\"" ;    # Menggunakan Data Property
+    cs:definisi "Kepuasaan terhadap ongkos yang dikenakan kepada penerima layanan dalam mengurus dan/atau memperoleh pelayanan dari penyelenggara yang besarnya ditetapkan berdasarkan kesepakatan antara penyelenggara dan masyarakat." ;    # Menggunakan Data Property
+    cs:produsen_data_name "Badan Pendapatan Daerah Provinsi Bali" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "51" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "5100" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 13:02:43" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-17 08:02:04" ;    # Menggunakan Data Property
+    cs:updated_at "2021-11-17 08:02:04" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_143631 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "32825"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "\" Kepuasan terhadap  biaya layanan\"" ;    # Menggunakan Data Property
+    cs:konsep "\"biaya\"" ;    # Menggunakan Data Property
+    cs:definisi "Kepuasaan terhadap ongkos yang dikenakan kepada penerima layanan dalam mengurus dan/atau memperoleh pelayanan dari penyelenggara yang besarnya ditetapkan berdasarkan kesepakatan antara penyelenggara dan masyarakat." ;    # Menggunakan Data Property
+    cs:produsen_data_name "BBMKG Wilayah III Denpasar" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "51" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "5100" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 13:07:58" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-17 14:12:32" ;    # Menggunakan Data Property
+    cs:updated_at "2021-11-17 14:12:32" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_142382 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "32505"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "\" Kepuasan terhadap  biaya layanan\"" ;    # Menggunakan Data Property
+    cs:konsep "\"biaya\"" ;    # Menggunakan Data Property
+    cs:definisi "Kepuasaan terhadap ongkos yang dikenakan kepada penerima layanan dalam mengurus dan/atau memperoleh pelayanan dari penyelenggara yang besarnya ditetapkan berdasarkan kesepakatan antara penyelenggara dan masyarakat." ;    # Menggunakan Data Property
+    cs:produsen_data_name "Badan Pendapatan Daerah Provinsi Bali" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "51" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "5100" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 05:36:40" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-17 14:48:55" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-19 22:36:40" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_133359 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "30366"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "`Umur" ;    # Menggunakan Data Property
+    cs:konsep "\"-\"" ;    # Menggunakan Data Property
+    cs:definisi "Umur" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Kependudukan dan Pencatatan Sipil Kota Banjarmasin" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "63" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "6371" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 05:49:38" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-05 08:18:01" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-19 22:49:39" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_129568 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "29567"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "10 jenis penyakit penyebab kematian di rumah sakit" ;    # Menggunakan Data Property
+    cs:konsep "\"10 jenis penyakit penyebab kematian di rumah sakit\"" ;    # Menggunakan Data Property
+    cs:definisi "10 jenis penyakit penyebab kematian di rumah sakit" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Kesehatan Kota Tangerang" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "36" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "3671" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-19 08:17:13" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-05 07:32:56" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-19 01:17:13" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_129550 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "29567"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "10 jenis penyakit rawat inap di rumah sakit" ;    # Menggunakan Data Property
+    cs:konsep "\"10 jenis penyakit rawat inap di rumah sakit\"" ;    # Menggunakan Data Property
+    cs:definisi "10 jenis penyakit rawat inap di rumah sakit" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Kesehatan Kota Tangerang" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "36" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "3671" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-19 08:17:09" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-05 07:17:13" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-19 01:17:09" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_129546 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "29567"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "10 jenis penyakit rawat jalan di rumah sakit" ;    # Menggunakan Data Property
+    cs:konsep "\"10 jenis penyakit rawat jalan di rumah sakit\"" ;    # Menggunakan Data Property
+    cs:definisi "10 jenis penyakit rawat jalan di rumah sakit" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Kesehatan Kota Tangerang" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "36" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "3671" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-19 08:17:14" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-05 07:14:09" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-19 01:17:14" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_129554 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "29567"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "10 jenis penyakit terbanyak di puskesmas" ;    # Menggunakan Data Property
+    cs:konsep "\"10 jenis penyakit terbanyak di puskesmas\"" ;    # Menggunakan Data Property
+    cs:definisi "10 jenis penyakit terbanyak di puskesmas" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Kesehatan Kota Tangerang" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "36" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "3671" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-19 08:17:10" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-05 07:09:36" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-19 01:17:10" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_106541 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "24876"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "acceptor" ;    # Menggunakan Data Property
+    cs:konsep "\"jumlah orang pengguna alat KB di PUS\"" ;    # Menggunakan Data Property
+    cs:definisi "jumlah suami/istri pasangan usia subur yang menggunakan alat kontrasepsi" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Pengendalian Penduduk dan Keluarga Berencana" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "81" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "8105" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-19 20:57:52" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-17 06:35:59" ;    # Menggunakan Data Property
+    cs:updated_at "2021-11-17 06:35:59" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_128923 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "29476"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Jumlah Penduduk Sensus Penduduk 2020" ;    # Menggunakan Data Property
+    cs:konsep "\"AD dan ART Organisasi adalah bentuk perikatan dalam berorganisasi yang menjadi pedoman bagi semua pihak yang terkait dalam organisasi\"" ;    # Menggunakan Data Property
+    cs:definisi "AD dan ART Organisasi adalah bentuk perikatan dalam berorganisasi yang menjadi pedoman bagi semua pihak yang terkait dalam organisasi" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Kantor Kesatuan Bangsa dan Politik" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "12" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "1221" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 10:46:53" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-17 02:26:56" ;    # Menggunakan Data Property
+    cs:updated_at "2021-11-17 02:26:56" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_131234 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "29938"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Administrasi Wilayah" ;    # Menggunakan Data Property
+    cs:konsep "\"Administrasi Wilayah\"" ;    # Menggunakan Data Property
+    cs:definisi "Banyaknya wilayah administrasi  di Indonesia, yaitu mencakup: desa, kelurahan, UPT/SPT, dan lainnya." ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Komunikasi, Informatika, Statistik dan Persandian Kabupaten Murung Raya" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "62" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "6213" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-19 21:25:56" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-04 08:26:05" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-19 14:25:57" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_125949 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "28649"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Agama" ;    # Menggunakan Data Property
+    cs:konsep "\"sistem yang mengatur tata keimanan (kepercayaan) dan peribadatan kepada Tuhan Yang Mahakuasa serta tata kaidah yang berhubungan dengan pergaulan manusia dan manusia serta lingkungannya\"" ;    # Menggunakan Data Property
+    cs:definisi "sistem yang mengatur tata keimanan (kepercayaan) dan peribadatan kepada Tuhan Yang Mahakuasa serta tata kaidah yang berhubungan dengan pergaulan manusia dan manusia serta lingkungannya" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Tenaga Kerja dan Transmigrasi Kabupaten Muaro Jambi" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "15" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "1505" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 06:13:49" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-06 00:08:00" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-19 23:13:49" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_124075 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "28173"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Agama" ;    # Menggunakan Data Property
+    cs:konsep "\"Agama\"" ;    # Menggunakan Data Property
+    cs:definisi "Agama adalah sistem yang mengatur kepercayaan serta peribadatan kepada Tuhan Yang Mahakuasa serta tata kaidah yang berhubungan dengan budaya, dan pandangan dunia yang menghubungkan manusia dengan tatanan kehidupan" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Badan Kepegawaian dan Pengembangan Sumber Daya Manusia (BKPSDM)" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "17" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "1709" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-19 18:19:14" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-06 15:28:02" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-19 11:19:14" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_139195 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "31838"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Agama" ;    # Menggunakan Data Property
+    cs:konsep "\"Agama masing-masing Warga Binaan\"" ;    # Menggunakan Data Property
+    cs:definisi "Agama masing-masing Warga Binaan" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Lembaga Pemasyarakatan Kelas III Sinabang" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "11" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "1101" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 13:59:00" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-07 08:35:55" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-20 06:59:00" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_123187 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "27983"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Agama" ;    # Menggunakan Data Property
+    cs:konsep "\"Agama berdasarkan pengakuan penduduk\"" ;    # Menggunakan Data Property
+    cs:definisi "Agama berdasarkan pengakuan penduduk" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Kependudukan dan Pencatatan Sipil Kota Banjarbaru" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "63" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "6372" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 15:12:40" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-07 13:00:40" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-20 08:12:41" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_119221 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "27496"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Agama" ;    # Menggunakan Data Property
+    cs:konsep "\"Agama\"" ;    # Menggunakan Data Property
+    cs:definisi "Pengelompokan Penduduk menurut kepercayaan yang dianut oleh penduduk
+" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Kependudukan dan Pencatatan Sipil Provinsi Bengkulu" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "17" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "1700" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 04:38:44" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-10 07:49:46" ;    # Menggunakan Data Property
+    cs:updated_at "2021-11-10 07:49:46" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_138274 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "31631"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Agama" ;    # Menggunakan Data Property
+    cs:konsep "\"Agama\"" ;    # Menggunakan Data Property
+    cs:definisi "Agama yang dianut oleh responden saat dilakukan pencacahan" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Sosial Kota Jambi" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "15" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "1571" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 12:39:13" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-04 06:52:33" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-20 05:39:14" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_133343 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "30363"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Agama" ;    # Menggunakan Data Property
+    cs:konsep "\"agama yang dianut responden\"" ;    # Menggunakan Data Property
+    cs:definisi "agama yang dianut responden" ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Pengendalian Penduduk dan Keluarga Berencana Kabupaten Muaro Jambi" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "15" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "1505" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 05:47:44" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-05 01:52:47" ;    # Menggunakan Data Property
+    cs:updated_at "2021-11-05 01:52:47" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_136061 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "31144"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Agama" ;    # Menggunakan Data Property
+    cs:konsep "\"Agama\"" ;    # Menggunakan Data Property
+    cs:definisi "Sistem yang mengatur kepercayaan serta peribadatan kepada Tuhan Yang Mahakuasa serta tata kaidah yang berhubungan dengan budaya, dan pandangan dunia yang menghubungkan manusia dengan tatanan kehidupan." ;    # Menggunakan Data Property
+    cs:produsen_data_name "BADAN KEPENDUDUKAN DAN KELUARGA BERENCANA NASIONAL" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "12" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "1205" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 12:31:57" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-05 02:52:43" ;    # Menggunakan Data Property
+    cs:updated_at "2021-11-05 02:52:43" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+cs:Metadata_variabels_137258 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
+    cs:id_mskeg "31402"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Agama" ;    # Menggunakan Data Property
+    cs:konsep "\"Agama yag dianut seseorang\"" ;    # Menggunakan Data Property
+    cs:definisi "Keyakinan yang dianut oleh maisng-masing anggota keluarga " ;    # Menggunakan Data Property
+    cs:produsen_data_name "Dinas Pengendalian Penduduk dan Keluarga Berencana Kabupaten Bolaang Mongondow Timur" ;    # Menggunakan Data Property
+    cs:produsen_data_province_code "71" ;    # Menggunakan Data Property
+    cs:produsen_data_city_code "7174" ;    # Menggunakan Data Property
+    cs:last_sync "2024-08-20 05:40:58" ;    # Menggunakan Data Property
+    cs:created_at "2021-11-02 02:42:58" ;    # Menggunakan Data Property
+    cs:updated_at "2024-08-19 22:40:58" ;    # Menggunakan Data Property
+    cs:status "APPROVED" ;    # Menggunakan Data Property
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
+
+# Instances dari Standar_data_statistik_nasionals Class
+cs:Standar_data_statistik_nasionals_7 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "32020026" ;    # Menggunakan Data Property
+    cs:namaData "Wilayah" ;    # Menggunakan Data Property
+    cs:konsep "[K00940] Kode dan Nama Wilayah Kerja Statistik;
+[K01825] Provinsi;
+[K00709] Kabupaten;
+[K00989] Kota;
+[K00788] Kecamatan;
+[K00371] Desa;
+[K00836] Kelurahan;" ;    # Menggunakan Data Property
+    cs:definisi "Lingkungan daerah menurut letak geografis yang mengacu pada sistem pengkodean wilayah kerja statistik." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "-" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "Kode dan Wilayah Kerja Statistik" ;    # Menggunakan Data Property
+    cs:ukuran "-" ;    # Menggunakan Data Property
+    cs:satuan "-" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_9 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "33220007" ;    # Menggunakan Data Property
+    cs:namaData "Jenis Kelamin" ;    # Menggunakan Data Property
+    cs:konsep "[K00704] Jenis Kelamin;" ;    # Menggunakan Data Property
+    cs:definisi "Perbedaan antara perempuan dengan laki-laki secara fisiologis yang ditandai dengan ciri-ciri fisik tertentu. Jenis kelamin terbagi atas perempuan dan laki-laki." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "-" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "1. Laki-laki;
+2. Perempuan;" ;    # Menggunakan Data Property
+    cs:ukuran "-" ;    # Menggunakan Data Property
+    cs:satuan "-" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_14 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "10410096" ;    # Menggunakan Data Property
+    cs:namaData "Persentase Fasilitas Kesehatan dengan Paket Obat Esensial yang Tersedia dan Terjangkau Secara Berkelanjutan" ;    # Menggunakan Data Property
+    cs:konsep "[K00927] Ketersediaan Obat;
+[K00923] Keterjangkauan Obat;" ;    # Menggunakan Data Property
+    cs:definisi "Bagian dari fasilitas kesehatan, yang memiliki serangkaian obat-obatan berkualitas yang tersedia dan terjangkau." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;
+[32020020] Klasifikasi Wilayah;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Persentase" ;    # Menggunakan Data Property
+    cs:satuan "persen" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_17 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "10610065" ;    # Menggunakan Data Property
+    cs:namaData "Persentase Penduduk yang Menerima Program Perlindungan Sosial" ;    # Menggunakan Data Property
+    cs:konsep "[K02024] Sistem Perlindungan Sosial;
+[K01805] Program Jaminan Sosial;" ;    # Menggunakan Data Property
+    cs:definisi "Bagian dari populasi penduduk, yang menjadi penerima program perlindungan sosial PBI JKN." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;
+[33220007] Jenis Kelamin;
+[10620071] Status Disabilitas;
+[10120066] Umur/Usia;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Persentase" ;    # Menggunakan Data Property
+    cs:satuan "persen" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_19 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "29010007" ;    # Menggunakan Data Property
+    cs:namaData "Jumlah Nilai Total Official Development Assistance (ODA) untuk Penelitian Medis dan Sektor Kesehatan Dasar" ;    # Menggunakan Data Property
+    cs:konsep "[K01252] Official Development Assistant (ODA);
+[K00902] Kesehatan;" ;    # Menggunakan Data Property
+    cs:definisi "Jumlah dari seluruh ODA yang dialirkan dari semua donor ke negara-negara berkembang untuk penelitian medis dan kesehatan dasar." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;
+[21020004] Jenis Bantuan Official Development Assistance;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Total" ;    # Menggunakan Data Property
+    cs:satuan "rupiah" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_21 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "10410173" ;    # Menggunakan Data Property
+    cs:namaData "Tingkat Kepadatan dan Distribusi Tenaga Kesehatan" ;    # Menggunakan Data Property
+    cs:konsep "[K02174] Tenaga Kesehatan;" ;    # Menggunakan Data Property
+    cs:definisi "Angka yang menunjukkan ketersediaan tenaga kesehatan dalam memberikan pelayanan kesehatan kepada 100.000 penduduk." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;
+[33220007] Jenis Kelamin;
+[32020020] Klasifikasi Wilayah;
+[10420023] Jenis Tenaga Kesehatan;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Tingkat" ;    # Menggunakan Data Property
+    cs:satuan "tenaga kesehatan perseratus ribu penduduk" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_39 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "31010054" ;    # Menggunakan Data Property
+    cs:namaData "Jumlah Potensi Penurunan Emisi Gas Rumah Kaca (GRK)" ;    # Menggunakan Data Property
+    cs:konsep "[K02257] Upaya Penurunan Emisi GRK;
+[K01590] Penurunan Emisi GRK tahunan;
+[K00470] Gas Rumah Kaca (GRK);" ;    # Menggunakan Data Property
+    cs:definisi "Besarnya potensi penurunan emisi GRK yang dihitung dari emisi GRK baseline dikurangi dengan emisi proyek." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Total" ;    # Menggunakan Data Property
+    cs:satuan "T CO2-equivalent" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_42 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "31010108" ;    # Menggunakan Data Property
+    cs:namaData "Rasio Potensi Penurunan Intensitas Emisi Gas Rumah Kaca (GRK)" ;    # Menggunakan Data Property
+    cs:konsep "[K02258] Upaya Penurunan Intensitas Emisi GRK;
+[K00617] Intensitas Emisi GRK;
+[K00470] Gas Rumah Kaca (GRK);" ;    # Menggunakan Data Property
+    cs:definisi "Perbandingan antara total emisi GRK di tahun berjalan dengan GDP di tahun berjalan." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Rasio" ;    # Menggunakan Data Property
+    cs:satuan "tonnes of carbon dioxide equivalent per rupiah" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_82 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "10710047" ;    # Menggunakan Data Property
+    cs:namaData "Persentase Rumah Tangga dengan Rumah Hak Milik" ;    # Menggunakan Data Property
+    cs:konsep "[K01925] Rumah Tangga;
+[K02153] Tempat Tinggal Milik Sendiri;
+[K00487] Hak Atas Hunian Terjamin;" ;    # Menggunakan Data Property
+    cs:definisi "Bagian dari populasi rumah tangga, yang menghuni rumah milik sendiri." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;
+[32020020] Klasifikasi Wilayah;
+[10520008] Kuintil Pengeluaran;
+[10520001] Distribusi Pendapatan;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Persentase" ;    # Menggunakan Data Property
+    cs:satuan "persen" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_83 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "10410155" ;    # Menggunakan Data Property
+    cs:namaData "Persentase Unmet Need Pelayanan Kesehatan" ;    # Menggunakan Data Property
+    cs:konsep "[K02250] Unmet Need Pelayanan Kesehatan;" ;    # Menggunakan Data Property
+    cs:definisi "Bagian dari populasi penduduk, yang mengalami keluhan kesehatan dan terganggu aktivitasnya tetapi tidak berobat jalan pada waktu tertentu." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;
+[32020020] Klasifikasi Wilayah;
+[33220007] Jenis Kelamin;
+[10120066] Umur/Usia;
+[10320055] Tingkat Pendidikan yang Ditamatkan;
+[10520008] Kuintil Pengeluaran;
+[10520001] Distribusi Pendapatan;
+[10620071] Status Disabilitas;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Persentase" ;    # Menggunakan Data Property
+    cs:satuan "persen" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_84 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "10610031" ;    # Menggunakan Data Property
+    cs:namaData "Persentase Cakupan Jaminan Kesehatan Nasional (JKN)" ;    # Menggunakan Data Property
+    cs:konsep "[K00674] Jaminan Kesehatan Nasional (JKN);" ;    # Menggunakan Data Property
+    cs:definisi "Bagian dari populasi penduduk yang mendapatkan perlindungan kesejahteraan." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;
+[33220007] Jenis Kelamin;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Persentase" ;    # Menggunakan Data Property
+    cs:satuan "persen" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_86 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "10410118" ;    # Menggunakan Data Property
+    cs:namaData "Persentase Penduduk Umur >=15 Tahun yang Merokok" ;    # Menggunakan Data Property
+    cs:konsep "[K01476] Penduduk;
+[K01173] Merokok;" ;    # Menggunakan Data Property
+    cs:definisi "Bagian dari populasi penduduk umur >=15 tahun,yang merokok selama sebulan terakhir." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;
+[32020020] Klasifikasi Wilayah;
+[33220007] Jenis Kelamin;
+[10120066] Umur/Usia;
+[10320055] Tingkat Pendidikan yang Ditamatkan;
+[10520008] Kuintil Pengeluaran;
+[10520001] Distribusi Pendapatan;
+[10620071] Status Disabilitas;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Persentase" ;    # Menggunakan Data Property
+    cs:satuan "persen" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_89 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "33110012" ;    # Menggunakan Data Property
+    cs:namaData "Rasio Gini" ;    # Menggunakan Data Property
+    cs:konsep "[K01536] Pengeluaran Rumah Tangga;" ;    # Menggunakan Data Property
+    cs:definisi "Indikator yang menunjukkan tingkat ketimpangan pengeluaran secara menyeluruh. Rasio Gini sering disebut sebagai Indeks Gini." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;
+[32020020] Klasifikasi Wilayah;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Rasio" ;    # Menggunakan Data Property
+    cs:satuan "-" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_90 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "10310005" ;    # Menggunakan Data Property
+    cs:namaData "Angka Partisipasi Kasar (APK) Tingkat Perguruan Tinggi (PT)" ;    # Menggunakan Data Property
+    cs:konsep "[K00113] Angka Partisipasi Kasar (APK);
+[K01651] Perguruan Tinggi;" ;    # Menggunakan Data Property
+    cs:definisi "Angka yang menggambarkan tingkat partisipasi penduduk yang sedang duduk di bangku kuliah secara umum, baik penduduk yang berusia kuliah maupun tidak. Indikator ini juga menunjukkan apakah kapasitas Perguruan Tinggi mampu menampung siswa dari kelompok usia kuliah." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;
+[32020020] Klasifikasi Wilayah;
+[33220007] Jenis Kelamin;
+[10520008] Kuintil Pengeluaran;
+[10520001] Distribusi Pendapatan;
+[10620071] Status Disabilitas;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Persentase" ;    # Menggunakan Data Property
+    cs:satuan "persen" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_91 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "10310027" ;    # Menggunakan Data Property
+    cs:namaData "Persentase Angka Melek Aksara Penduduk Umur >=15 Tahun" ;    # Menggunakan Data Property
+    cs:konsep "[K01154] Melek Aksara/Huruf;" ;    # Menggunakan Data Property
+    cs:definisi "Bagian dari populasi penduduk umur >=15 tahun, yang dapat membaca dan menulis kalimat sederhana dengan huruf latin dan atau huruf lainnya." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;
+[32020020] Klasifikasi Wilayah;
+[33220007] Jenis Kelamin;
+[10520008] Kuintil Pengeluaran;
+[10520001] Distribusi Pendapatan;
+[10620071] Status Disabilitas;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Persentase" ;    # Menggunakan Data Property
+    cs:satuan "persen" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_95 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "10410147" ;    # Menggunakan Data Property
+    cs:namaData "Persentase Perempuan Usia Reproduksi 15-49 Tahun yang Membuat Keputusan Sendiri Terkait Hubungan Seksual, Penggunaan Kontrasepsi, dan Layanan Kesehatan" ;    # Menggunakan Data Property
+    cs:konsep "[K01269] Otonomi Perempuan dalam Pengambilan Keputusan dan Pelaksanaan Hak-hak Reproduksi;" ;    # Menggunakan Data Property
+    cs:definisi "Bagian dari perempuan berusia reproduksi 15-49 tahun, yang membuat keputusan sendiri terkait hubungan seksual, penggunaan kontrasepsi, dan layanan kesehatan terhadap jumlah penduduk perempuan umur 15-49 tahun." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;
+[32020020] Klasifikasi Wilayah;
+[10120066] Umur/Usia;
+[10320055] Tingkat Pendidikan yang Ditamatkan;
+[10520008] Kuintil Pengeluaran;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Persentase" ;    # Menggunakan Data Property
+    cs:satuan "persen" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_98 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "22010020" ;    # Menggunakan Data Property
+    cs:namaData "Rata-Rata Pertumbuhan Ekonomi Daerah Tertinggal" ;    # Menggunakan Data Property
+    cs:konsep "[K01710] Pertumbuhan Ekonomi;
+[K00335] Daerah Tertinggal (Kabupaten Tertinggal);" ;    # Menggunakan Data Property
+    cs:definisi "Rata-rata pertumbuhan ekonomi daerah tertinggal dari seluruh daerah tertinggal yang ditetapkan berdasarkan Perpres No. 131 Tahun 2015 (2015 s.d. 2019 mencakup 122 daerah tertinggal) dan Perpres No.63 Tahun 2020 (2020 s.d. 2024 mencakup 62 daerah tertinggal)." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Rata-rata" ;    # Menggunakan Data Property
+    cs:satuan "persen" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_99 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "33110010" ;    # Menggunakan Data Property
+    cs:namaData "Persentase Penduduk Miskin di Daerah Tertinggal" ;    # Menggunakan Data Property
+    cs:konsep "[K01479] Penduduk Miskin;
+[K00335] Daerah Tertinggal (Kabupaten Tertinggal);" ;    # Menggunakan Data Property
+    cs:definisi "Bagian dari populasi penduduk yang tidak mampu memenuhi hak dasar untuk hidup layak dan mandiri, yang menetap di daerah tertinggal. Secara matematis, penduduk miskin tersebut memiliki rata-rata pengeluaran per kapita per bulan di bawah garis kemiskinan. Penetapan daerah tertinggal berdasarkan Perpres No. 131 Tahun 2015 (2015 s.d. 2019 mencakup 122 daerah tertinggal) dan Perpres No.63 Tahun 2020 (2020 s.d. 2024 mencakup 62 daerah tertinggal)." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Persentase" ;    # Menggunakan Data Property
+    cs:satuan "persen" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_100 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "31010037" ;    # Menggunakan Data Property
+    cs:namaData "Jumlah Dana Publik (Budget Tagging) untuk Pendanaan Perubahan Iklim" ;    # Menggunakan Data Property
+    cs:konsep "[K01429] Penandaan Anggaran Perubahan Iklim (Climate Budget Tagging);" ;    # Menggunakan Data Property
+    cs:definisi "Jumlah dana publik melalui climate budget tagging untuk mengatasi kebutuhan pelaksanaan kegiatan pengendalian perubahan iklim dalam konteks aksi mitigasi dan adaptasi yang bermanfaat dan transparan." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Total" ;    # Menggunakan Data Property
+    cs:satuan "rupiah" ;    # Menggunakan Data Property .
+
+cs:Standar_data_statistik_nasionals_101 a cs:Standar_data_statistik_nasionals ;    # Instance dari class Standar_data_statistik_nasionals
+    cs:kodeSds "31010099" ;    # Menggunakan Data Property
+    cs:namaData "Persentase Penurunan Sampah Terbuang ke Laut" ;    # Menggunakan Data Property
+    cs:konsep "[K01949] Sampah laut;" ;    # Menggunakan Data Property
+    cs:definisi "Besarnya perubahan banyak sampah yang terbuang ke laut pada tahun berjalan dibandingkan dengan tahun sebelumnya terhadap total sampah pada tahun tersebut." ;    # Menggunakan Data Property
+    cs:klasifikasiPenyajian "[32020026] Wilayah;" ;    # Menggunakan Data Property
+    cs:klasifikasiIsian "-" ;    # Menggunakan Data Property
+    cs:ukuran "Persentase" ;    # Menggunakan Data Property
+    cs:satuan "persen" ;    # Menggunakan Data Property .
+

@@ -1,0 +1,117 @@
+@prefix ex: <http://example.org/ns#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Classes
+ex:MetadataVariabel rdf:type rdfs:Class .
+ex:MasterKegiatan rdf:type rdfs:Class .
+ex:StandarDataStatistikNasional rdf:type rdfs:Class .
+ex:MasterIndikator rdf:type rdfs:Class .
+
+# Properties for MetadataVariabel
+ex:id_mskeg rdf:type rdf:Property ;
+    rdfs:domain ex:MetadataVariabel ;
+    rdfs:range xsd:integer .
+
+ex:nama rdf:type rdf:Property ;
+    rdfs:domain ex:MetadataVariabel ;
+    rdfs:range xsd:string .
+
+ex:konsep rdf:type rdf:Property ;
+    rdfs:domain ex:MetadataVariabel ;
+    rdfs:range xsd:string .
+
+ex:definisi rdf:type rdf:Property ;
+    rdfs:domain ex:MetadataVariabel ;
+    rdfs:range xsd:string .
+
+ex:produsen_data_name rdf:type rdf:Property ;
+    rdfs:domain ex:MetadataVariabel ;
+    rdfs:range xsd:string .
+
+ex:produsen_data_province_code rdf:type rdf:Property ;
+    rdfs:domain ex:MetadataVariabel ;
+    rdfs:range xsd:string .
+
+ex:produsen_data_city_code rdf:type rdf:Property ;
+    rdfs:domain ex:MetadataVariabel ;
+    rdfs:range xsd:string .
+
+ex:last_sync rdf:type rdf:Property ;
+    rdfs:domain ex:MetadataVariabel ;
+    rdfs:range xsd:string .
+
+ex:created_at rdf:type rdf:Property ;
+    rdfs:domain ex:MetadataVariabel ;
+    rdfs:range xsd:string .
+
+ex:updated_at rdf:type rdf:Property ;
+    rdfs:domain ex:MetadataVariabel ;
+    rdfs:range xsd:string .
+
+ex:status rdf:type rdf:Property ;
+    rdfs:domain ex:MetadataVariabel ;
+    rdfs:range xsd:string .
+
+ex:submission_period rdf:type rdf:Property ;
+    rdfs:domain ex:MetadataVariabel ;
+    rdfs:range xsd:string .
+
+# Properties for MasterKegiatan
+ex:periode_input rdf:type rdf:Property ;
+    rdfs:domain ex:MasterKegiatan ;
+    rdfs:range xsd:string .
+
+ex:judul_kegiatan rdf:type rdf:Property ;
+    rdfs:domain ex:MasterKegiatan ;
+    rdfs:range xsd:string .
+
+ex:tahun_kegiatan rdf:type rdf:Property ;
+    rdfs:domain ex:MasterKegiatan ;
+    rdfs:range xsd:integer .
+
+ex:jenis_statistik rdf:type rdf:Property ;
+    rdfs:domain ex:MasterKegiatan ;
+    rdfs:range xsd:string .
+
+ex:cara_pengumpulan_data rdf:type rdf:Property ;
+    rdfs:domain ex:MasterKegiatan ;
+    rdfs:range xsd:string .
+
+ex:pj_jabatan rdf:type rdf:Property ;
+    rdfs:domain ex:MasterKegiatan ;
+    rdfs:range xsd:string .
+
+ex:tujuan_kegiatan rdf:type rdf:Property ;
+    rdfs:domain ex:MasterKegiatan ;
+    rdfs:range xsd:string .
+
+# Properties for StandarDataStatistikNasional
+ex:kodeSds rdf:type rdf:Property ;
+    rdfs:domain ex:StandarDataStatistikNasional ;
+    rdfs:range xsd:string .
+
+ex:namaData rdf:type rdf:Property ;
+    rdfs:domain ex:StandarDataStatistikNasional ;
+    rdfs:range xsd:string .
+
+ex:konsep rdf:type rdf:Property ;
+    rdfs:domain ex:StandarDataStatistikNasional ;
+    rdfs:range xsd:string .
+
+ex:definisi rdf:type rdf:Property ;
+    rdfs:domain ex:StandarDataStatistikNasional ;
+    rdfs:range xsd:string .
+
+ex:klasifikasiPenyajian rdf:type rdf:Property ;
+    rdfs:domain ex:StandarDataStatistikNasional ;
+    rdfs:range xsd:string .
+
+ex:klasifikasiIsian rdf:type rdf:Property ;
+    rdfs:domain ex:StandarDataStatistikNasional ;
+    rdfs:range xsd:string .
+
+ex:ukuran rdf:type rdf:Property ;
+    rdfs:domain ex:StandarDataStatistikNasional ;
+   

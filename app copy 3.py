@@ -5,7 +5,6 @@ import networkx as nx
 import requests
 from difflib import SequenceMatcher
 import re
-import itertools
 from sqlalchemy import create_engine, inspect,text
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
@@ -16,9 +15,7 @@ from entity_ontology import OntologyBuilder
 import google.generativeai as genai
 import mysql.connector
 
-
 app = Flask(__name__)
-api_key = "AIzaSyA1ZHwqVwzj1z9A8lWNhlXZfX5-sby__8A"
 ontology_builder = OntologyBuilder()
 # Load database configuration from a file
 def load_db_config():
@@ -34,147 +31,6 @@ def load_db_config():
         }
 
 db_config = load_db_config()
-
-def get_db_connection():
-    return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="newbps"
-    )
-
-def create_gsbpm_ontology():
-    # Initialize RDF graph
-    g = Graph()
-    
-    # Define namespaces
-    GSBPM = Namespace("http://example.org/gsbpm#")
-    g.bind("gsbpm", GSBPM)
-    g.bind("rdf", RDF)
-    g.bind("rdfs", RDFS)
-    g.bind("owl", OWL)
-    g.bind("xsd", XSD)
-    
-    # Define Ontology
-    ontology = URIRef("http://example.org/gsbpm#GSBPMOntology")
-    g.add((ontology, RDF.type, OWL.Ontology))
-    g.add((ontology, RDFS.label, Literal("GSBPM Ontology", lang="en")))
-    g.add((ontology, RDFS.comment, Literal("An ontology for the Generic Statistical Business Process Model", lang="en")))
-    
-    # Define Main Classes
-    classes = [
-        ("StatisticalProject", "Statistical Project", "A statistical project following GSBPM model"),
-        ("SpecifyNeeds", "Specify Needs", "Phase 1 of GSBPM - Specify Needs"),
-        ("Design", "Design", "Phase 2 of GSBPM - Design"),
-        ("Build", "Build", "Phase 3 of GSBPM - Build"),
-        ("Collect", "Collect", "Phase 4 of GSBPM - Collect"),
-        ("Process", "Process", "Phase 5 of GSBPM - Process"),
-        ("Analyze", "Analyze", "Phase 6 of GSBPM - Analyze"),
-        ("Disseminate", "Disseminate", "Phase 7 of GSBPM - Disseminate"),
-        ("QualityManagement", "Quality Management", "Overarching process - Quality Management"),
-        ("MetadataManagement", "Metadata Management", "Overarching process - Metadata Management")
-    ]
-    
-    for class_id, label, comment in classes:
-        class_uri = GSBPM[class_id]
-        g.add((class_uri, RDF.type, OWL.Class))
-        g.add((class_uri, RDFS.label, Literal(label, lang="en")))
-        g.add((class_uri, RDFS.comment, Literal(comment, lang="en")))
-    
-    # Define Properties
-    g.add((GSBPM.hasProjectID, RDF.type, OWL.DatatypeProperty))
-    g.add((GSBPM.hasProjectID, RDFS.domain, GSBPM.StatisticalProject))
-    g.add((GSBPM.hasProjectID, RDFS.range, XSD.string))
-    
-    g.add((GSBPM.hasProjectName, RDF.type, OWL.DatatypeProperty))
-    g.add((GSBPM.hasProjectName, RDFS.domain, GSBPM.StatisticalProject))
-    g.add((GSBPM.hasProjectName, RDFS.range, XSD.string))
-    
-    # Connect to database and add instances
-    conn = get_db_connection()
-    cursor = conn.cursor(dictionary=True)
-    
-    try:
-        # Fetch statistical activities and create instances
-        cursor.execute("SELECT * FROM master_kegiatans")
-        activities = cursor.fetchall()
-        
-        for activity in activities:
-            # Create Statistical Project instance
-            project_uri = URIRef(f"{GSBPM}Project_{activity['id']}")
-            g.add((project_uri, RDF.type, GSBPM.StatisticalProject))
-            g.add((project_uri, GSBPM.hasProjectID, Literal(str(activity['id']))))
-            g.add((project_uri, GSBPM.hasProjectName, Literal(activity['judul_kegiatan'])))
-            
-            if activity['created_at']:
-                g.add((project_uri, GSBPM.hasStartDate, 
-                      Literal(activity['created_at'], datatype=XSD.dateTime)))
-            
-            # Add Design phase information
-            design_node = BNode()
-            g.add((project_uri, GSBPM.hasDesign, design_node))
-            g.add((design_node, RDF.type, GSBPM.Design))
-            g.add((design_node, GSBPM.statisticalType, Literal(activity['jenis_statistik'])))
-            g.add((design_node, GSBPM.dataCollectionMethod, Literal(activity['cara_pengumpulan_data'])))
-            
-            # Fetch and add indicators as part of Specify Needs
-            cursor.execute("SELECT * FROM master_indikators WHERE id_mskeg = %s", (activity['id'],))
-            indicators = cursor.fetchall()
-            
-            if indicators:
-                needs_node = BNode()
-                g.add((project_uri, GSBPM.hasSpecifyNeeds, needs_node))
-                g.add((needs_node, RDF.type, GSBPM.SpecifyNeeds))
-                
-                for indicator in indicators:
-                    g.add((needs_node, GSBPM.identifyNeeds, Literal(indicator['nama'])))
-                    g.add((needs_node, GSBPM.consultStakeholders, Literal(indicator['produsen_data_name'])))
-            
-            # Add metadata management information
-            metadata_node = BNode()
-            g.add((project_uri, GSBPM.hasMetadataManagement, metadata_node))
-            g.add((metadata_node, RDF.type, GSBPM.MetadataManagement))
-            
-            # Fetch and add variables as part of metadata
-            cursor.execute("SELECT * FROM metadata_variabels WHERE id_mskeg = %s", (activity['id'],))
-            variables = cursor.fetchall()
-            
-            for variable in variables:
-                g.add((metadata_node, GSBPM.hasVariable, Literal(variable['nama'])))
-                g.add((metadata_node, GSBPM.hasDefinition, Literal(variable['definisi'])))
-        
-    finally:
-        cursor.close()
-        conn.close()
-    
-    return g
-
-app = Flask(__name__)
-
-@app.route('/gsbpm-ontology')
-def get_gsbpm_ontology():
-    """
-    Generate and return GSBPM ontology in Turtle format
-    """
-    try:
-        # Create the ontology graph
-        g = create_gsbpm_ontology()
-        
-        # Serialize to Turtle format
-        turtle_data = g.serialize(format='turtle')
-        
-        # Return as response with appropriate content type
-        return Response(
-            turtle_data,
-            mimetype='text/turtle',
-            headers={
-                'Content-Disposition': 'attachment; filename=gsbpm_ontology.ttl'
-            }
-        )
-    except Exception as e:
-        return str(e), 500
-
-
 
 @app.route('/')
 def index():
@@ -327,6 +183,181 @@ def save_rdf_to_file(filename, rdf_graph):
 
 
 
+class OntologyResolver:
+    def __init__(self):
+        self.mfg = Namespace("http://example.org/manufacturing#")
+        
+    def get_table_schema(self, table_name, engine):
+        """Get column information for a table"""
+        inspector = inspect(engine)
+        return inspector.get_columns(table_name)
+        
+    def get_table_sample_data(self, table_name, engine, sample_size=1000):
+        """Get sample data from table"""
+        query = f"SELECT * FROM {table_name} LIMIT {sample_size}"
+        return pd.read_sql(query, engine)
+
+    def compare_columns(self, cols1, cols2):
+        """Compare two sets of columns and return similarity metrics"""
+        # Get column names
+        names1 = set(col['name'] for col in cols1)
+        names2 = set(col['name'] for col in cols2)
+        
+        # Calculate overlapping columns
+        common_cols = names1.intersection(names2)
+        
+        # Calculate type matches for common columns
+        type_matches = sum(1 for col in cols1 if col['name'] in common_cols 
+                         and any(col2['type'].__str__() == col['type'].__str__() 
+                               for col2 in cols2 if col2['name'] == col['name']))
+        
+        metrics = {
+            'column_overlap': len(common_cols) / max(len(names1), len(names2)),
+            'type_match_ratio': type_matches / len(common_cols) if common_cols else 0,
+            'common_columns': list(common_cols)
+        }
+        
+        return metrics
+
+    def compare_data_patterns(self, data1, data2, common_cols):
+        """Compare data patterns between two tables for common columns"""
+        pattern_metrics = {}
+        
+        for col in common_cols:
+            if col in data1.columns and col in data2.columns:
+                # Compare basic statistics
+                stats1 = data1[col].describe()
+                stats2 = data2[col].describe()
+                
+                # Calculate correlation if numeric
+                if pd.api.types.is_numeric_dtype(data1[col]) and pd.api.types.is_numeric_dtype(data2[col]):
+                    correlation = data1[col].corr(data2[col])
+                    pattern_metrics[col] = {
+                        'correlation': correlation,
+                        'mean_diff': abs(stats1['mean'] - stats2['mean']),
+                        'std_diff': abs(stats1['std'] - stats2['std'])
+                    }
+                else:
+                    # For non-numeric, compare value distributions
+                    dist1 = data1[col].value_counts(normalize=True)
+                    dist2 = data2[col].value_counts(normalize=True)
+                    
+                    # Calculate Jensen-Shannon divergence or similar metric
+                    pattern_metrics[col] = {
+                        'value_overlap': len(set(data1[col]).intersection(set(data2[col]))) / \
+                                       len(set(data1[col]).union(set(data2[col])))
+                    }
+        
+        return pattern_metrics
+
+    def check_entity_resolution(self, rdf_graph, engine):
+        """
+        Enhanced entity resolution with schema and data analysis
+        """
+        resolution_graph = Graph()
+        resolution_graph.bind('mfg', self.mfg)
+        resolution_graph.bind('owl', OWL)
+        resolution_graph.bind('rdfs', RDFS)
+        
+        # Extract all classes
+        classes = []
+        for s, p, o in rdf_graph.triples((None, RDF.type, OWL.Class)):
+            classes.append(str(s))
+        
+        similar_entities = []
+        similarity_scores = []
+        
+        for i in range(len(classes)):
+            for j in range(i + 1, len(classes)):
+                class1 = classes[i].split('#')[1]
+                class2 = classes[j].split('#')[1]
+                
+                # Basic name similarity
+                base1 = re.sub(r'_copy\d+$', '', class1)
+                base2 = re.sub(r'_copy\d+$', '', class2)
+                name_sim_score = SequenceMatcher(None, base1, base2).ratio()
+                
+                # Only proceed with detailed analysis if names are similar enough
+                if base1 == base2 or name_sim_score > 0.9:
+                    # Get schema information
+                    cols1 = self.get_table_schema(class1, engine)
+                    cols2 = self.get_table_schema(class2, engine)
+                    column_metrics = self.compare_columns(cols1, cols2)
+                    
+                    # Get sample data for detailed comparison
+                    data1 = self.get_table_sample_data(class1, engine)
+                    data2 = self.get_table_sample_data(class2, engine)
+                    data_metrics = self.compare_data_patterns(data1, data2, column_metrics['common_columns'])
+                    
+                    # Calculate overall similarity score
+                    overall_score = (
+                        name_sim_score * 0.3 +  # Name similarity weight
+                        column_metrics['column_overlap'] * 0.3 +  # Schema similarity weight
+                        column_metrics['type_match_ratio'] * 0.4   # Data pattern similarity weight
+                    )
+                    
+                    similarity_info = {
+                        'class1': class1,
+                        'class2': class2,
+                        'name_similarity': name_sim_score,
+                        'column_metrics': column_metrics,
+                        'data_patterns': data_metrics,
+                        'overall_score': overall_score
+                    }
+                    
+                    similarity_scores.append(similarity_info)
+                    
+                    if overall_score > 0.8:  # Threshold for considering tables as similar
+                        similar_entities.append((classes[i], classes[j]))
+                        
+                        uri1 = URIRef(classes[i])
+                        uri2 = URIRef(classes[j])
+                        
+                        # Add to resolution graph
+                        resolution_graph.add((uri1, RDF.type, OWL.Class))
+                        resolution_graph.add((uri2, RDF.type, OWL.Class))
+                        resolution_graph.add((uri1, OWL.equivalentClass, uri2))
+                        
+                        # Add detailed similarity metrics as annotations
+                        comment = f"""Similarity Analysis:
+                            Name Similarity: {name_sim_score:.2f}
+                            Column Overlap: {column_metrics['column_overlap']:.2f}
+                            Type Match Ratio: {column_metrics['type_match_ratio']:.2f}
+                            Overall Score: {overall_score:.2f}"""
+                        
+                        resolution_graph.add((uri1, RDFS.comment, Literal(comment)))
+        
+        metrics = {
+            'total_classes': len(classes),
+            'similar_pairs_found': len(similar_entities),
+            'similarity_scores': similarity_scores
+        }
+        
+        return resolution_graph, metrics
+
+    def save_entity_resolution(self, filename, resolution_graph, metrics):
+        """Save enhanced resolution results with detailed metrics"""
+        header = f"""# Entity Resolution Results
+# Total Classes: {metrics['total_classes']}
+# Similar Pairs Found: {metrics['similar_pairs_found']}
+# Detailed Similarity Scores:
+"""
+        
+        for score in metrics['similarity_scores']:
+            header += f"""
+# {score['class1']} - {score['class2']}:
+#   Name Similarity: {score['name_similarity']:.2f}
+#   Column Overlap: {score['column_metrics']['column_overlap']:.2f}
+#   Type Match Ratio: {score['column_metrics']['type_match_ratio']:.2f}
+#   Overall Score: {score['overall_score']:.2f}
+#   Common Columns: {', '.join(score['column_metrics']['common_columns'])}
+"""
+        
+        turtle_str = resolution_graph.serialize(format='turtle')
+        final_str = header + "\n" + turtle_str
+        
+        with open(filename, 'w') as f:
+            f.write(final_str)
 # Modify the route to use the class
 @app.route('/construct_ontology', methods=['POST'])
 def construct_ontology():
@@ -683,300 +714,6 @@ def entity_ontology():
     ontology_data = ontology_builder.get_ontology_data() if os.path.exists("buildontology.ttl") else None
     return render_template('entityontology.html', data=ontology_data)
 
-@app.route('/check_entity', methods=['GET'])
-def ask_gemini2():
-    try:
-        # Konfigurasi Gemini API
-        genai.configure(api_key='AIzaSyA1ZHwqVwzj1z9A8lWNhlXZfX5-sby__8A')
-        model = genai.GenerativeModel('gemini-pro')
-        
-        # Membuat prompt dengan format yang lebih baik dan template output
-        prompt = """lakukan entity resolution dari data in dan berikan output dengan format seperti template dibawah ini:
-
-Template Output yang diinginkan:
-@prefix cs: <http://example.org/cs#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-cs:Master_indikators_2 a cs:Master_indikators ;
-    cs:id_mskeg "2"^^xsd:decimal ;
-    cs:nama "Jumlah Penduduk Sensus Penduduk 2020" ;
-    cs:konsep "\"Penduduk\"" ;
-    owl:sameAs cs:Master_indikators_3 .    # Menandakan bahwa kedua entitas merujuk pada hal yang sama
-# Tambahan metadata untuk memperjelas hubungan
-cs:equivalence_reason a owl:Annotation ;
-    cs:related_entity_1 cs:Master_indikators_2 ;
-    cs:related_entity_2 cs:Master_indikators_3 ;
-    cs:similarity_score "0.90"^^xsd:decimal ;
-    cs:matching_fields "id_mskeg, definisi, produsen_data_codes, timestamps, status, submission_period" ;
-    cs:resolution_date "2024-11-20"^^xsd:date .
-
-Data Input untuk dianalisis:
-cs:Master_indikators_2 a cs:Master_indikators ;
-    cs:id_mskeg "2"^^xsd:decimal ;
-    cs:nama "Jumlah Penduduk Sensus Penduduk 2020" ;
-    cs:konsep "\"Penduduk\"" ;
-    cs:definisi "Jumlah penduduk adalah ukuran absolut dari penduduk, dinyatakan dalam satuan jiwa. Penduduk Hasil Sensus Penduduk 2020 adalah penduduk menurut alamat domisili; yaitu semua orang (WNI dan WNA) yang tinggal di wilayah Negara Kesatuan Republik Indonesia selama satu tahun atau lebih dan atau mereka yang berdomisili kurang dari satu tahun tetapi bertujuan untuk menetap lebih dari satu tahun" ;
-    cs:produsen_data_province_code "00" ;
-    cs:produsen_data_city_code "0000" ;
-    cs:last_sync "2023-10-31 09:06:59" ;
-    cs:created_at "2021-07-18 17:00:00" ;
-    cs:updated_at "2023-10-31 02:06:59" ;
-    cs:status "APPROVED" ;
-    cs:submission_period "2021" .
-
-cs:Master_indikators_3 a cs:Master_indikators ;
-    cs:id_mskeg "2"^^xsd:decimal ;
-    cs:nama "Jumlah Penduduk Sensus Penduduk 2020 abc" ;
-    cs:konsep "\"Penduduk\ abc"" ;
-    cs:definisi "Jumlah penduduk adalah ukuran absolut dari penduduk, dinyatakan dalam satuan jiwa. Penduduk Hasil Sensus Penduduk 2020 adalah penduduk menurut alamat domisili; yaitu semua orang (WNI dan WNA) yang tinggal di wilayah Negara Kesatuan Republik Indonesia selama satu tahun atau lebih dan atau mereka yang berdomisili kurang dari satu tahun tetapi bertujuan untuk menetap lebih dari satu tahun" ;
-    cs:produsen_data_province_code "00" ;
-    cs:produsen_data_city_code "0000" ;
-    cs:last_sync "2023-10-31 09:06:59" ;
-    cs:created_at "2021-07-18 17:00:00" ;
-    cs:updated_at "2023-10-31 02:06:59" ;
-    cs:status "APPROVED" ;
-    cs:submission_period "2021" .
-
-cs:Master_indikators_4 a cs:Master_indikators ;
-    cs:id_mskeg "3"^^xsd:decimal ;
-    cs:nama "Tamu per kamar" ;
-    cs:konsep "\"Tamu per kamar\"" ;
-    cs:definisi "Tamu per kamar adalah rata-rata banyaknya tamu dalam satu kamar yang disewa yang dibedakan ke dalam tamu asing, domestik, asing dan domestic" ;
-    cs:produsen_data_province_code "00" ;
-    cs:produsen_data_city_code "0000" ;
-    cs:last_sync "2023-10-31 09:07:00" ;
-    cs:created_at "2020-12-28 17:00:00" ;
-    cs:updated_at "2023-10-31 02:07:00" ;
-    cs:status "APPROVED" ;
-    cs:submission_period "2020" .
-
-cs:Master_indikators_5 a cs:Master_indikators ;
-    cs:id_mskeg "3"^^xsd:decimal ;
-    cs:nama "Tamu per kamar 123" ;
-    cs:konsep "\"Tamu per kamar 123\"" ;
-    cs:definisi "Tamu per kamar adalah rata-rata banyaknya tamu dalam satu kamar yang disewa yang dibedakan ke dalam tamu asing, domestik, asing dan domestic" ;
-    cs:produsen_data_province_code "00" ;
-    cs:produsen_data_city_code "0000" ;
-    cs:last_sync "2023-10-31 09:07:00" ;
-    cs:created_at "2020-12-28 17:00:00" ;
-    cs:updated_at "2023-10-31 02:07:00" ;
-    cs:status "APPROVED" ;
-    cs:submission_period "2020" .
-
-cs:Master_indikators_6 a cs:Master_indikators ;
-    cs:id_mskeg "3"^^xsd:decimal ;
-    cs:nama "TPTT Hotel" ;
-    cs:konsep "\"Tingkat Pemakaian Tempat Tidur (TPTT) Hotel\"" ;
-    cs:definisi "Tingkat Pemakaian Tempat Tidur (TPTT) Hotel adalah perbandingan antara jumlah tempat tidur hotel yang telah dipakai dengan jumlah tempat tidur yang tersedia." ;
-    cs:produsen_data_province_code "00" ;
-    cs:produsen_data_city_code "0000" ;
-    cs:last_sync "2023-10-31 09:07:00" ;
-    cs:created_at "2020-12-28 17:00:00" ;
-    cs:updated_at "2023-10-31 02:07:00" ;
-    cs:status "APPROVED" ;
-    cs:submission_period "2020" .
-
-Tolong analisis data diatas dan berikan output sesuai template yang diberikan. Identifikasi entitas yang sama atau sangat mirip berdasarkan:
-1. Kesamaan id_mskeg
-2. Kemiripan nama dan konsep
-3. Kemiripan definisi
-4. Kesamaan kode produsen data
-5. Kesamaan timestamps dan status
-6. Kesamaan periode submission
-
-Berikan similarity score berdasarkan berapa banyak field yang cocok dari kriteria diatas. Gunakan format yang sama persis dengan template, termasuk prefixes dan structure-nya."""
-        
-        # Generate konten
-        response = model.generate_content(prompt)
-        
-        # Return plain text response
-        return Response(response.text, content_type='text/plain')
-            
-    except Exception as e:
-        return Response(f"Error: {str(e)}", content_type='text/plain')
-    
-@app.route('/check_gsbpm_entity', methods=['GET'])
-def check_gsbpm_entity():
-    try:
-        # Konfigurasi Gemini API
-        genai.configure(api_key='AIzaSyA1ZHwqVwzj1z9A8lWNhlXZfX5-sby__8A')
-        model = genai.GenerativeModel('gemini-pro')
-        
-        # Load the GSBPM ontology file
-        g = Graph()
-        g.parse("gsbpm_ontology.ttl", format="turtle")
-        
-        def safe_n3(value):
-            """Safely convert value to N3 format, handling None values"""
-            if value is None:
-                return '""'
-            if isinstance(value, Literal):
-                return value.n3()
-            if isinstance(value, URIRef):
-                return f"<{value}>"
-            return f'"{str(value)}"'
-
-        def extract_project_data(g):
-            projects_data = ""
-            GSBPM = Namespace("http://example.org/gsbpm#")
-            
-            # Query untuk mendapatkan semua Statistical Projects
-            for project in g.subjects(RDF.type, GSBPM.StatisticalProject):
-                project_id = project.split('#')[-1]
-                projects_data += f"\ngsbpm:{project_id} a gsbpm:StatisticalProject ;\n"
-                
-                # Get basic properties
-                basic_properties = {
-                    "hasProjectID": None,
-                    "hasProjectName": None,
-                    "hasStartDate": None,
-                    "statisticalType": None,
-                    "dataCollectionMethod": None
-                }
-                
-                for pred, obj in g.predicate_objects(project):
-                    pred_name = pred.split('#')[-1]
-                    if pred_name in basic_properties:
-                        basic_properties[pred_name] = obj
-                
-                # Add non-null properties
-                for prop_name, value in basic_properties.items():
-                    if value is not None:
-                        projects_data += f"    gsbpm:{prop_name} {safe_n3(value)} ;\n"
-                
-                # Get SpecifyNeeds phase data
-                specify_needs = list(g.objects(project, GSBPM.hasSpecifyNeeds))
-                if specify_needs:
-                    needs_node = specify_needs[0]
-                    projects_data += "    gsbpm:hasSpecifyNeeds [\n"
-                    
-                    # Get indicators
-                    indicators = list(g.objects(needs_node, GSBPM.identifyNeeds))
-                    if indicators:
-                        projects_data += "        gsbpm:indicators [\n"
-                        for indicator in indicators:
-                            projects_data += f"            gsbpm:name {safe_n3(indicator)} ;\n"
-                        projects_data += "        ] ;\n"
-                    
-                    projects_data += "    ] ;\n"
-                
-                # Get MetadataManagement data
-                metadata = list(g.objects(project, GSBPM.hasMetadataManagement))
-                if metadata:
-                    metadata_node = metadata[0]
-                    projects_data += "    gsbpm:hasMetadataManagement [\n"
-                    
-                    # Get variables
-                    variables = list(g.objects(metadata_node, GSBPM.hasVariable))
-                    if variables:
-                        for variable in variables:
-                            projects_data += f"        gsbpm:variable {safe_n3(variable)} ;\n"
-                    
-                    projects_data += "    ] .\n"
-                else:
-                    projects_data = projects_data.rstrip(" ;\n") + " .\n"
-            
-            return projects_data
-        
-        input_data = extract_project_data(g)
-        
-        if not input_data.strip():
-            return "No valid projects found in the ontology", 404
-        
-        # Membuat prompt untuk analisis entity resolution
-        prompt = f"""Lakukan entity resolution dari data GSBPM dan berikan output dengan format seperti template dibawah ini:
-
-Template Output yang diinginkan:
-@prefix gsbpm: <http://example.org/gsbpm#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-gsbpm:Project_1 a gsbpm:StatisticalProject ;
-    gsbpm:hasProjectID "1"^^xsd:decimal ;
-    gsbpm:hasProjectName "Census Project" ;
-    owl:sameAs gsbpm:Project_2 .
-
-gsbpm:equivalence_reason a owl:Annotation ;
-    gsbpm:related_entity_1 gsbpm:Project_1 ;
-    gsbpm:related_entity_2 gsbpm:Project_2 ;
-    gsbpm:similarity_score "0.90"^^xsd:decimal ;
-    gsbpm:matching_fields "projectID, projectName, indicators, metadata" ;
-    gsbpm:resolution_date "2024-11-20"^^xsd:date .
-
-Data Input untuk dianalisis:
-{input_data}
-
-Tolong analisis data diatas dan berikan output sesuai template yang diberikan. Identifikasi entitas yang sama atau sangat mirip berdasarkan:
-1. Kesamaan projectID
-2. Kemiripan projectName
-3. Kemiripan dalam fase SpecifyNeeds (indicators)
-4. Kemiripan dalam MetadataManagement
-5. Kesamaan timestamps
-6. Kesamaan phases yang terlibat
-
-Berikan similarity score berdasarkan berapa banyak field yang cocok dari kriteria diatas. Gunakan format yang sama persis dengan template, termasuk prefixes dan structure-nya."""
-        
-        # Generate konten
-        response = model.generate_content(prompt)
-        
-        # Return response dalam format Turtle
-        return Response(
-            response.text,
-            mimetype='text/turtle',
-            headers={
-                'Content-Disposition': 'attachment; filename=gsbpm_entity_resolution.ttl'
-            }
-        )
-            
-    except Exception as e:
-        import traceback
-        return f"Error: {str(e)}\n\nTraceback:\n{traceback.format_exc()}", 500
-    
-@app.route('/dashboard')
-def entity_resolution_dashboard():
-    try:
-        # Read the Turtle output (mock for now, or read from a file)
-        with open("gsbpm_entity_resolution.ttl", "r") as file:
-            turtle_data = file.read()
-        
-        # Parse the Turtle file into JSON-LD or triples for frontend
-        g = Graph()
-        g.parse(data=turtle_data, format="turtle")
-        
-        GSBPM = Namespace("http://example.org/gsbpm#")
-        OWL = Namespace("http://www.w3.org/2002/07/owl#")
-        XSD = Namespace("http://www.w3.org/2001/XMLSchema#")
-        
-        # Extract relevant data
-        entities = []
-        for subject in g.subjects(RDF.type, GSBPM.StatisticalProject):
-            project_data = {
-                "project_id": g.value(subject, GSBPM.hasProjectID),
-                "project_name": g.value(subject, GSBPM.hasProjectName),
-                "same_as": list(g.objects(subject, OWL.sameAs)),
-            }
-            entities.append(project_data)
-        
-        resolutions = []
-        for subject in g.subjects(RDF.type, OWL.Annotation):
-            resolution = {
-                "related_entity_1": g.value(subject, GSBPM.related_entity_1),
-                "related_entity_2": g.value(subject, GSBPM.related_entity_2),
-                "similarity_score": g.value(subject, GSBPM.similarity_score),
-                "matching_fields": g.value(subject, GSBPM.matching_fields),
-                "resolution_date": g.value(subject, GSBPM.resolution_date),
-            }
-            resolutions.append(resolution)
-        
-        # Render the dashboard with the extracted data
-        return render_template(
-            'dashboard.html',
-            entities=entities,
-            resolutions=resolutions
-        )
-    except Exception as e:
-        import traceback
-        return f"Error: {str(e)}\n\nTraceback:\n{traceback.format_exc()}", 500
 
 if __name__ == '__main__':
     app.run(debug=True)

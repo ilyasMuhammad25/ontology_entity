@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entity Resolution Visualization</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">
+            Entity Resolution Visualization Dashboard
+        </h1>
+
+        <!-- Grid layout for visualizations -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <!-- Heatmap Section -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-4">Similarity Scores Heatmap</h2>
+                <div class="aspect-w-16 aspect-h-9">
+                    <img src="visualizations/similarity_heatmap.png" alt="Similarity Heatmap" 
+                         class="rounded-lg object-contain w-full h-full">
+                </div>
+                <p class="mt-4 text-sm text-gray-600">
+                    Shows patterns in similarity scores across different entity types.
+                </p>
+            </div>
+
+            <!-- Distribution Plot Section -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-4">Score Distribution</h2>
+                <div class="aspect-w-16 aspect-h-9">
+                    <img src="visualizations/similarity_distribution.png" alt="Score Distribution" 
+                         class="rounded-lg object-contain w-full h-full">
+                </div>
+                <p class="mt-4 text-sm text-gray-600">
+                    Displays the distribution of similarity scores for each entity type.
+                </p>
+            </div>
+
+            <!-- Boxplot Section -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-4">Statistical Summary</h2>
+                <div class="aspect-w-16 aspect-h-9">
+                    <img src="visualizations/similarity_boxplot.png" alt="Statistical Summary" 
+                         class="rounded-lg object-contain w-full h-full">
+                </div>
+                <p class="mt-4 text-sm text-gray-600">
+                    Shows statistical summary of similarity scores using boxplots.
+                </p>
+            </div>
+
+            <!-- Timeline Section -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold mb-4">Match Timeline</h2>
+                <div class="aspect-w-16 aspect-h-9">
+                    <img src="visualizations/similarity_timeline.png" alt="Match Timeline" 
+                         class="rounded-lg object-contain w-full h-full">
+                </div>
+                <p class="mt-4 text-sm text-gray-600">
+                    Displays the sequence and trends of entity matches over time.
+                </p>
+            </div>
+        </div>
+
+        <!-- Summary Statistics Section -->
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-xl font-semibold mb-4">Summary Statistics</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 bg-blue-50 rounded-lg">
+                    <h3 class="font-bold text-blue-700">Surveys</h3>
+                    <div class="stats-container" id="surveyStats">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="p-4 bg-green-50 rounded-lg">
+                    <h3 class="font-bold text-green-700">Questions</h3>
+                    <div class="stats-container" id="questionStats">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="p-4 bg-purple-50 rounded-lg">
+                    <h3 class="font-bold text-purple-700">Responses</h3>
+                    <div class="stats-container" id="responseStats">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to load and display statistics
+        async function loadStats() {
+            try {
+                // Simulate loading statistics (replace with actual API call)
+                const stats = {
+                    surveys: {
+                        total: 10,
+                        matches: 3,
+                        avgSimilarity: 0.85
+                    },
+                    questions: {
+                        total: 25,
+                        matches: 8,
+                        avgSimilarity: 0.82
+                    },
+                    responses: {
+                        total: 50,
+                        matches: 15,
+                        avgSimilarity: 0.88
+                    }
+                };
+
+                // Update stats in DOM
+                document.getElementById('surveyStats').innerHTML = `
+                    <p>Total: ${stats.surveys.total}</p>
+                    <p>Matches Found: ${stats.surveys.matches}</p>
+                    <p>Avg. Similarity: ${stats.surveys.avgSimilarity.toFixed(2)}</p>
+                `;
+
+                document.getElementById('questionStats').innerHTML = `
+                    <p>Total: ${stats.questions.total}</p>
+                    <p>Matches Found: ${stats.questions.matches}</p>
+                    <p>Avg. Similarity: ${stats.questions.avgSimilarity.toFixed(2)}</p>
+                `;
+
+                document.getElementById('responseStats').innerHTML = `
+                    <p>Total: ${stats.responses.total}</p>
+                    <p>Matches Found: ${stats.responses.matches}</p>
+                    <p>Avg. Similarity: ${stats.responses.avgSimilarity.toFixed(2)}</p>
+                `;
+
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        // Load stats when page loads
+        document.addEventListener('DOMContentLoaded', loadStats);
+    </script>
+</body>
+</html>
