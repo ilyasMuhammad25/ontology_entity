@@ -49,9 +49,9 @@ gsbpm:Project_11 a gsbpm:StatisticalProject ;
     gsbpm:hasDesign [ a gsbpm:Design ;
             gsbpm:dataCollectionMethod "SURVEI" ;
             gsbpm:statisticalType "STATISTIK_DASAR" ] ;
-    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
-    gsbpm:hasProjectID "11" ;
-    gsbpm:hasProjectName "Survei Sosial Ekonomi Nasional (SUSENAS) Kor (Tahunan)" ;
+  gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "10" ;
+    gsbpm:hasProjectName "Kompilasi Data Statistik Indikator Kesejahteraan Rakyat Indonesia" ;
     gsbpm:hasStartDate "1970-01-01 00:00:00"^^xsd:dateTime .
 
 gsbpm:Project_12 a gsbpm:StatisticalProject ;
@@ -165,15 +165,6 @@ gsbpm:Project_22 a gsbpm:StatisticalProject ;
     gsbpm:hasProjectName "Perancangan Sistem Informasi Kebencanaan Tsunami melalui Penyusunan Peta Kerawanan dan Jalur Evakuasi Bencana di Pesisir Kota Bengkulu" ;
     gsbpm:hasStartDate "2014-08-25 17:00:00"^^xsd:dateTime .
 
-gsbpm:Project_23 a gsbpm:StatisticalProject ;
-    gsbpm:hasDesign [ a gsbpm:Design ;
-            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
-            gsbpm:statisticalType "STATISTIK SEKTORAL" ] ;
-    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
-    gsbpm:hasProjectID "23" ;
-    gsbpm:hasProjectName "Kajian Pengaturan Fasilitas Pelayanan Kesehatan Dasar (klinik) Berbasis Profesionalisme Profesi" ;
-    gsbpm:hasStartDate "2014-09-17 17:00:00"^^xsd:dateTime .
-
 gsbpm:Project_3 a gsbpm:StatisticalProject ;
     gsbpm:hasDesign [ a gsbpm:Design ;
             gsbpm:dataCollectionMethod "SURVEI" ;
@@ -236,8 +227,7 @@ gsbpm:Project_9 a gsbpm:StatisticalProject ;
     gsbpm:hasProjectName "Analisis faktor-faktor MotivasiKerja Terhadap Prestasi Kerja Karyawan PT. Batanghari Barisan Padang" ;
     gsbpm:hasSpecifyNeeds [ a gsbpm:SpecifyNeeds ;
             gsbpm:consultStakeholders "None" ;
-            gsbpm:identifyNeeds "Angka Partisipasi Kasar (APK) PAUD (3-5 tahun dan 3 sampai 6 tahun)",
-                "Angka Partisipasi Kasar (APK) PAUD (3-5 tahun dan 3-6 tahun)",
+            gsbpm:identifyNeeds "Angka Partisipasi Kasar (APK) PAUD (3-5 tahun dan 3-6 tahun)",
                 "Angka Partisipasi Kasar (APK) SD, SMP, SM, PT (19-24 tahun) dan PT (19-23 tahun)",
                 "Angka Partisipasi Murni (APM) PAUD (3-5 tahun dan 3-6 tahun)",
                 "Angka Partisipasi Murni (APM) SD, SMP, SM, PT (19-24 tahun), dan PT (19-23 tahun)",

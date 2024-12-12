@@ -6,71 +6,226 @@
     <title>Entity Resolution Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .data-container {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .table-responsive {
+            margin-top: 20px;
+        }
+        .chart-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        .score-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+        .table th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .navbar {
+            background-color: #4CAF50;
+            overflow: hidden;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center">Entity Resolution Dashboard</h1>
-
-        <!-- Entities Table -->
-        <h2>Projects</h2>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Project ID</th>
-                    <th>Project Name</th>
-                    <th>Same As</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entity in entities %}
-                <tr>
-                    <td>{{ entity.project_id }}</td>
-                    <td>{{ entity.project_name }}</td>
-                    <td>
-                        {% for same_as in entity.same_as %}
-                        <span>{{ same_as }}</span>{% if not loop.last %}, {% endif %}
-                        {% endfor %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <!-- Resolutions Table -->
-        <h2>Resolutions</h2>
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Entity 1</th>
-                    <th>Entity 2</th>
-                    <th>Similarity Score</th>
-                    <th>Matching Fields</th>
-                    <th>Resolution Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for resolution in resolutions %}
-                <tr>
-                    <td>{{ resolution.related_entity_1 }}</td>
-                    <td>{{ resolution.related_entity_2 }}</td>
-                    <td>{{ resolution.similarity_score }}</td>
-                    <td>{{ resolution.matching_fields }}</td>
-                    <td>{{ resolution.resolution_date }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <!-- Chart -->
-        <h2>Similarity Scores</h2>
-        <canvas id="similarityChart" width="400" height="200"></canvas>
+    <div class="navbar">
+        <a href="/config">Config</a>
+        <a href="/check_gsbpm_entity">Entity Resolution</a>
+        <a href="/dashboard">Dashboard</a>
     </div>
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">GSBPM Entity Resolution Dashboard</h1>
 
+        <!-- File Information -->
+        <div class="data-container">
+            <h2 class="section-title">RDF Data Source</h2>
+            <p><strong>File:</strong> gsbpm_entity_resolution.ttl</p>
+            
+            <!-- Added TTL Content Frame -->
+            <div class="ttl-frame-container mt-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-muted">File Content:</span>
+                    <button class="btn btn-sm btn-outline-primary" onclick="toggleTTLFrame()">
+                        <span id="frameToggleText">Hide Content</span>
+                    </button>
+                </div>
+                <div id="ttlFrameWrapper" class="position-relative" style="height: 300px;">
+                    <pre id="ttlContent" class="ttl-frame p-3">{{ ttl_content }}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistical Projects -->
+        <div class="data-container">
+            <h2 class="section-title">Statistical Projects</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Project ID</th>
+                            <th>Project Name</th>
+                            <th>Related Entities (sameAs)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entity in entities %}
+                        <tr>
+                            <td><span class="badge bg-primary">{{ entity.project_id }}</span></td>
+                            <td>{{ entity.project_name }}</td>
+                            <td>
+                                {% for same_as in entity.same_as %}
+                                <span class="badge bg-secondary me-1">{{ same_as }}</span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Entity Resolutions -->
+        <div class="data-container">
+            <h2 class="section-title">Entity Resolutions</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Entity 1</th>
+                            <th>Entity 2</th>
+                            <th>Similarity Score</th>
+                            <th>Matching Fields</th>
+                            <th>Resolution Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for resolution in resolutions %}
+                        <tr>
+                            <td>{{ resolution.related_entity_1 }}</td>
+                            <td>{{ resolution.related_entity_2 }}</td>
+                            <td>
+                                {% set score = resolution.similarity_score|float %}
+                                <span class="score-badge 
+                                    {% if score >= 0.9 %}bg-success
+                                    {% elif score >= 0.7 %}bg-warning
+                                    {% else %}bg-danger{% endif %}">
+                                    {{ "%.2f"|format(score) }}
+                                </span>
+                            </td>
+                            <td>
+                                {% for field in resolution.matching_fields.split(', ') %}
+                                <span class="badge bg-info me-1">{{ field }}</span>
+                                {% endfor %}
+                            </td>
+                            <td>{{ resolution.resolution_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Similarity Score Visualization -->
+        <div class="data-container">
+            <h2 class="section-title">Similarity Score Distribution</h2>
+            <div class="chart-container">
+                <canvas id="similarityChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <style>
+        .ttl-frame-container {
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .ttl-frame {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            background: #282c34;
+            color: #abb2bf;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-y: auto;
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        .ttl-frame::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        .ttl-frame::-webkit-scrollbar-track {
+            background: #21252b;
+            border-radius: 4px;
+        }
+        
+        .ttl-frame::-webkit-scrollbar-thumb {
+            background: #4b5363;
+            border-radius: 4px;
+        }
+        
+        .ttl-frame::-webkit-scrollbar-thumb:hover {
+            background: #5c6370;
+        }
+        </style>
+        
+        <script>
+        function toggleTTLFrame() {
+            const wrapper = document.getElementById('ttlFrameWrapper');
+            const button = document.getElementById('frameToggleText');
+            
+            if (wrapper.style.display === 'none') {
+                wrapper.style.display = 'block';
+                button.textContent = 'Hide Content';
+            } else {
+                wrapper.style.display = 'none';
+                button.textContent = 'Show Content';
+            }
+        }
+        </script>
     <script>
+        // Prepare data for chart
         const resolutions = {{ resolutions|tojson }};
-        const labels = resolutions.map(r => `${r.related_entity_1} & ${r.related_entity_2}`);
+        const labels = resolutions.map(r => `${r.related_entity_1} ↔ ${r.related_entity_2}`);
         const scores = resolutions.map(r => parseFloat(r.similarity_score));
 
+        // Create chart
         const ctx = document.getElementById('similarityChart').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
@@ -79,15 +234,44 @@
                 datasets: [{
                     label: 'Similarity Score',
                     data: scores,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: scores.map(score => {
+                        if (score >= 0.9) return 'rgba(40, 167, 69, 0.7)';  // green
+                        if (score >= 0.7) return 'rgba(255, 193, 7, 0.7)';  // yellow
+                        return 'rgba(220, 53, 69, 0.7)';  // red
+                    }),
+                    borderColor: scores.map(score => {
+                        if (score >= 0.9) return 'rgb(40, 167, 69)';
+                        if (score >= 0.7) return 'rgb(255, 193, 7)';
+                        return 'rgb(220, 53, 69)';
+                    }),
                     borderWidth: 1
                 }]
             },
             options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Entity Resolution Similarity Scores'
+                    }
+                },
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        max: 1,
+                        title: {
+                            display: true,
+                            text: 'Similarity Score'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Entity Pairs'
+                        }
                     }
                 }
             }

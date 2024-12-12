@@ -1,4 +1,5 @@
 from flask import Flask, jsonify,request,Response,render_template, request
+from flask import Response, redirect, url_for
 from rdflib import Graph, Namespace, Literal, URIRef, BNode
 from rdflib.namespace import RDF, RDFS, OWL, XSD
 import networkx as nx
@@ -40,7 +41,7 @@ def get_db_connection():
         host="localhost",
         user="root",
         password="",
-        database="newbps"
+        database="bps_new"
     )
 
 def create_gsbpm_ontology():
@@ -151,30 +152,30 @@ def create_gsbpm_ontology():
 
 app = Flask(__name__)
 
+# untuk mengenerate ontology local
 @app.route('/gsbpm-ontology')
 def get_gsbpm_ontology():
     """
-    Generate and return GSBPM ontology in Turtle format
+    Generate GSBPM ontology and save it as TTL file in the app directory
     """
     try:
         # Create the ontology graph
         g = create_gsbpm_ontology()
         
-        # Serialize to Turtle format
-        turtle_data = g.serialize(format='turtle')
+        # Get the directory where the Flask app is located
+        app_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(app_dir, 'gsbpm_ontology.ttl')
         
-        # Return as response with appropriate content type
+        # Serialize and save to file
+        g.serialize(destination=file_path, format='turtle')
+        
         return Response(
-            turtle_data,
-            mimetype='text/turtle',
-            headers={
-                'Content-Disposition': 'attachment; filename=gsbpm_ontology.ttl'
-            }
+            f"File successfully generated at {file_path}",
+            mimetype='text/plain'
         )
+        
     except Exception as e:
         return str(e), 500
-
-
 
 @app.route('/')
 def index():
@@ -378,423 +379,8 @@ def generate(payload):
         return f"Error: {str(e)}"
 
 # Route to create prompt and send to model API
-@app.route('/ask', methods=['GET'])
-def ask_gemini():
-    try:
-        # Konfigurasi database
-        conn = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="newbps"
-        )
-        cursor = conn.cursor(dictionary=True)
 
-        # Get database metadata
-        metadata = get_database_metadata()
-        
-        # Template awal ontology
-        ontology = """@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix cs: <http://example.org/customersatisfaction#> .
-
-# ============= CLASS DEFINITIONS =============
-# Classes adalah template/blueprint untuk instances
-"""
-        
-        # Add classes
-        for table in metadata.keys():
-            class_name = table.capitalize()
-            ontology += f"""cs:{class_name} a owl:Class ;
-    rdfs:label "{class_name}" ;
-    rdfs:comment "A {class_name.lower()} in the system" .
-
-"""
-        
-        ontology += """# ============= PROPERTY DEFINITIONS =============
-# Object Properties (menghubungkan instances dengan instances lain)
-"""
-        
-        # Add object properties
-        for table, info in metadata.items():
-            for field in info['fields']:
-                if field.endswith('_id'):
-                    related_class = field.replace('_id', '').capitalize()
-                    property_name = f"has{related_class}"
-                    ontology += f"""cs:{property_name} a owl:ObjectProperty ;
-    rdfs:domain cs:{table.capitalize()} ;
-    rdfs:range cs:{related_class} ;
-    rdfs:label "has {related_class.lower()}" .
-
-"""
-        
-        ontology += """# Data Properties (menghubungkan instances dengan nilai literal)
-"""
-        
-        # Add data properties
-        for table, info in metadata.items():
-            for field in info['fields']:
-                if not field.endswith('_id'):
-                    ontology += f"""cs:{field} a owl:DatatypeProperty ;
-    rdfs:domain cs:{table.capitalize()} ;
-    rdfs:range xsd:string ;
-    rdfs:label "{field.replace('_', ' ')}" .
-
-"""
-        
-        ontology += """# ============= INSTANCE DATA =============
-"""
-        
-        # Add instances from database
-        for table, info in metadata.items():
-            class_name = table.capitalize()
-            ontology += f"# Instances dari {class_name} Class\n"
-            
-            # Query untuk mengambil data dari tabel
-            cursor.execute(f"SELECT * FROM {table}")
-            rows = cursor.fetchall()
-            
-            for row in rows:
-                # Instance identifier menggunakan id dari database
-                instance_id = row.get('id', 'unknown')
-                ontology += f"cs:{class_name}_{instance_id} a cs:{class_name} ;    # Instance dari class {class_name}\n"
-                
-                # Add property values dari data database
-                for field, value in row.items():
-                    if field != 'id':  # Skip ID field
-                        if field.endswith('_id'):
-                            # Handle foreign key relationships
-                            related_class = field.replace('_id', '').capitalize()
-                            property_name = f"has{related_class}"
-                            if value is not None:
-                                ontology += f"    cs:{property_name} cs:{related_class}_{value} ;    # Menggunakan Object Property\n"
-                        else:
-                            # Handle regular fields
-                            if value is not None:
-                                # Escape special characters dan handle tipe data
-                                if isinstance(value, str):
-                                    value = value.replace('"', '\\"')  # Escape quotes
-                                    ontology += f"    cs:{field} \"{value}\" ;    # Menggunakan Data Property\n"
-                                elif isinstance(value, (int, float)):
-                                    ontology += f"    cs:{field} \"{value}\"^^xsd:decimal ;    # Menggunakan Data Property\n"
-                                elif isinstance(value, datetime.datetime):
-                                    ontology += f"    cs:{field} \"{value.isoformat()}\"^^xsd:dateTime ;    # Menggunakan Data Property\n"
-                                elif isinstance(value, bool):
-                                    ontology += f"    cs:{field} \"{str(value).lower()}\"^^xsd:boolean ;    # Menggunakan Data Property\n"
-                
-                # Remove trailing semicolon and add period
-                ontology = ontology.rstrip(' ;\n') + " .\n\n"
-        
-        # Close database connection
-        cursor.close()
-        conn.close()
-        
-        # Save the ontology to a file
-        file_path = os.path.join(os.getcwd(), 'localontology.ttl')
-        with open(file_path, 'w', encoding='utf-8') as file:
-            file.write(ontology)
-            
-        return Response(
-            f"Ontology has been saved to {file_path}",
-            content_type='text/plain'
-        )
-        
-    except Exception as e:
-        return Response(
-            f"Error generating ontology: {str(e)}", 
-            content_type='text/plain',
-            status=500
-        )
-
-# Fungsi helper untuk mendapatkan tipe data yang sesuai
-def get_xsd_type(value):
-    if isinstance(value, int):
-        return "xsd:integer"
-    elif isinstance(value, float):
-        return "xsd:decimal"
-    elif isinstance(value, datetime.datetime):
-        return "xsd:dateTime"
-    elif isinstance(value, bool):
-        return "xsd:boolean"
-    else:
-        return "xsd:string"
-# cek entity resolution
-@app.route('/entity')
-def entity():
-    return render_template('entity.html')
-@app.route('/get_tables', methods=['GET'])
-def get_tables():
-    db_config = load_db_config()
-    connection_string = f"mysql+pymysql://{db_config['username']}:{db_config['password']}@{db_config['host']}/{db_config['dbname']}"
-    engine = create_engine(connection_string)
-
-    inspector = inspect(engine)
-    tables = inspector.get_table_names()
-    return jsonify({'tables': tables})
-
-@app.route('/get_columns/<table_name>', methods=['GET'])
-def get_columns(table_name):
-    db_config = load_db_config()
-    connection_string = f"mysql+pymysql://{db_config['username']}:{db_config['password']}@{db_config['host']}/{db_config['dbname']}"
-    engine = create_engine(connection_string)
-
-    inspector = inspect(engine)
-    columns = [column['name'] for column in inspector.get_columns(table_name)]
-    return jsonify({'columns': columns})
-
-
-@app.route('/check_entity_resolution', methods=['POST'])
-def check_entity_resolution():
-    table1 = request.form.get('table1')
-    column1 = request.form.get('columns1')
-    table2 = request.form.get('table2')
-    column2 = request.form.get('columns2')
-
-    # Load the database configuration
-    db_config = load_db_config()
-    connection_string = f"mysql+pymysql://{db_config['username']}:{db_config['password']}@{db_config['host']}/{db_config['dbname']}"
-    
-    # Create a database engine
-    engine = create_engine(connection_string)
-
-    # Fetch data from the first table and column
-    with engine.connect() as connection:
-        # Query untuk mengambil nilai dari kolom pertama
-        query1 = text(f"SELECT DISTINCT `{column1}` FROM `{table1}`")
-        result1 = connection.execute(query1)
-        values1 = [row[0] for row in result1]
-
-        # Query untuk mengambil nilai dari kolom kedua
-        query2 = text(f"SELECT DISTINCT `{column2}` FROM `{table2}`")
-        result2 = connection.execute(query2)
-        values2 = [row[0] for row in result2]
-
-    # Create prompt for Ollama with similarity scoring
-    prompt = "For the following pairs of entities, provide a similarity score (0-1) and whether they refer to the same item:\n"
-    for value1 in values1:
-        for value2 in values2:
-            prompt += f"- '{value1}' and '{value2}'\n"
-
-    # Call Ollama API
-    response = call_ollama_api(prompt)
-    
-    # Format the response
-    formatted_response = format_response(response)
-    
-    return jsonify({'result': formatted_response})
-
-def call_ollama_api(prompt):
-    payload = {
-        "model": "llama3.2",
-        "prompt": prompt,
-        "stream": True
-    }
-
-    try:
-        with requests.post('http://localhost:11434/api/generate', json=payload, stream=True) as response:
-            response.raise_for_status()
-            full_response = ""
-            for line in response.iter_lines():
-                if line:
-                    json_response = json.loads(line)
-                    if 'response' in json_response:
-                        full_response += json_response['response']
-            return full_response
-        
-    except requests.RequestException as e:
-        return f"Error: {str(e)}"
-
-def format_response(response):
-    # Assuming the response is in the format you expect
-    formatted = []
-    lines = response.splitlines()
-    for line in lines:
-        # Example line processing; adapt as necessary
-        if line.strip():  # Ignore empty lines
-            formatted.append(line.strip())
-    return formatted
-
-# Flask route modification
-@app.route('/check_entity_resolution2', methods=['POST'])
-def check_entity_resolution2():
-    table1 = request.form.get('table1')
-    column1 = request.form.get('columns1')
-    table2 = request.form.get('table2')
-    column2 = request.form.get('columns2')
-
-    # Load the database configuration
-    db_config = load_db_config()
-    connection_string = f"mysql+pymysql://{db_config['username']}:{db_config['password']}@{db_config['host']}/{db_config['dbname']}"
-    
-    # Create a database engine
-    engine = create_engine(connection_string)
-
-    # Fetch data from the first table and column
-    with engine.connect() as connection:
-        query1 = text(f"SELECT DISTINCT `{column1}` FROM `{table1}`")
-        result1 = connection.execute(query1)
-        values1 = [row[0] for row in result1]
-
-        query2 = text(f"SELECT DISTINCT `{column2}` FROM `{table2}`")
-        result2 = connection.execute(query2)
-        values2 = [row[0] for row in result2]
-
-    # Perform fuzzy matching
-    matches = []
-    threshold = 80  # Set a threshold for matching score
-
-    for value1 in values1:
-        best_match, score = process.extractOne(value1, values2, scorer=fuzz.token_sort_ratio)
-        if score >= threshold:
-            matches.append({
-                "value1": value1,
-                "value2": best_match,
-                "score": score,
-                "table1": table1,
-                "table2": table2
-            })
-
-   # Generate explanation using Ollama
-    explanation_prompt = f"""
-    Analisis hasil entity resolution berikut dan berikan penjelasan yang jelas:
-
-    - Membandingkan data antara tabel '{table1}' (kolom: {column1}) dengan tabel '{table2}' (kolom: {column2})
-    - Ditemukan {len(matches)} kecocokan dengan skor kesamaan >= {threshold}%
-    - Skor kecocokan tertinggi: {max([m['score'] for m in matches], default=0)}%
-    - Skor kecocokan terendah: {min([m['score'] for m in matches], default=0)}%
-
-    Tolong jelaskan apa arti hasil ini dan bagaimana implikasinya terhadap kualitas data. 
-    Berikan juga rekomendasi untuk perbaikan data jika diperlukan.
-    Jelaskan dengan bahasa yang mudah dipahami.
-    """
-    
-    ollama_explanation = call_ollama_api(explanation_prompt)
-
-    return jsonify({
-        'data': matches,
-        'total_matches': len(matches),
-        'explanation': ollama_explanation
-    })
-
-@app.route('/entity_ontology')
-def entity_ontology():
-    ontology_data = ontology_builder.get_ontology_data() if os.path.exists("buildontology.ttl") else None
-    return render_template('entityontology.html', data=ontology_data)
-
-@app.route('/check_entity', methods=['GET'])
-def ask_gemini2():
-    try:
-        # Konfigurasi Gemini API
-        genai.configure(api_key='AIzaSyA1ZHwqVwzj1z9A8lWNhlXZfX5-sby__8A')
-        model = genai.GenerativeModel('gemini-pro')
-        
-        # Membuat prompt dengan format yang lebih baik dan template output
-        prompt = """lakukan entity resolution dari data in dan berikan output dengan format seperti template dibawah ini:
-
-Template Output yang diinginkan:
-@prefix cs: <http://example.org/cs#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-cs:Master_indikators_2 a cs:Master_indikators ;
-    cs:id_mskeg "2"^^xsd:decimal ;
-    cs:nama "Jumlah Penduduk Sensus Penduduk 2020" ;
-    cs:konsep "\"Penduduk\"" ;
-    owl:sameAs cs:Master_indikators_3 .    # Menandakan bahwa kedua entitas merujuk pada hal yang sama
-# Tambahan metadata untuk memperjelas hubungan
-cs:equivalence_reason a owl:Annotation ;
-    cs:related_entity_1 cs:Master_indikators_2 ;
-    cs:related_entity_2 cs:Master_indikators_3 ;
-    cs:similarity_score "0.90"^^xsd:decimal ;
-    cs:matching_fields "id_mskeg, definisi, produsen_data_codes, timestamps, status, submission_period" ;
-    cs:resolution_date "2024-11-20"^^xsd:date .
-
-Data Input untuk dianalisis:
-cs:Master_indikators_2 a cs:Master_indikators ;
-    cs:id_mskeg "2"^^xsd:decimal ;
-    cs:nama "Jumlah Penduduk Sensus Penduduk 2020" ;
-    cs:konsep "\"Penduduk\"" ;
-    cs:definisi "Jumlah penduduk adalah ukuran absolut dari penduduk, dinyatakan dalam satuan jiwa. Penduduk Hasil Sensus Penduduk 2020 adalah penduduk menurut alamat domisili; yaitu semua orang (WNI dan WNA) yang tinggal di wilayah Negara Kesatuan Republik Indonesia selama satu tahun atau lebih dan atau mereka yang berdomisili kurang dari satu tahun tetapi bertujuan untuk menetap lebih dari satu tahun" ;
-    cs:produsen_data_province_code "00" ;
-    cs:produsen_data_city_code "0000" ;
-    cs:last_sync "2023-10-31 09:06:59" ;
-    cs:created_at "2021-07-18 17:00:00" ;
-    cs:updated_at "2023-10-31 02:06:59" ;
-    cs:status "APPROVED" ;
-    cs:submission_period "2021" .
-
-cs:Master_indikators_3 a cs:Master_indikators ;
-    cs:id_mskeg "2"^^xsd:decimal ;
-    cs:nama "Jumlah Penduduk Sensus Penduduk 2020 abc" ;
-    cs:konsep "\"Penduduk\ abc"" ;
-    cs:definisi "Jumlah penduduk adalah ukuran absolut dari penduduk, dinyatakan dalam satuan jiwa. Penduduk Hasil Sensus Penduduk 2020 adalah penduduk menurut alamat domisili; yaitu semua orang (WNI dan WNA) yang tinggal di wilayah Negara Kesatuan Republik Indonesia selama satu tahun atau lebih dan atau mereka yang berdomisili kurang dari satu tahun tetapi bertujuan untuk menetap lebih dari satu tahun" ;
-    cs:produsen_data_province_code "00" ;
-    cs:produsen_data_city_code "0000" ;
-    cs:last_sync "2023-10-31 09:06:59" ;
-    cs:created_at "2021-07-18 17:00:00" ;
-    cs:updated_at "2023-10-31 02:06:59" ;
-    cs:status "APPROVED" ;
-    cs:submission_period "2021" .
-
-cs:Master_indikators_4 a cs:Master_indikators ;
-    cs:id_mskeg "3"^^xsd:decimal ;
-    cs:nama "Tamu per kamar" ;
-    cs:konsep "\"Tamu per kamar\"" ;
-    cs:definisi "Tamu per kamar adalah rata-rata banyaknya tamu dalam satu kamar yang disewa yang dibedakan ke dalam tamu asing, domestik, asing dan domestic" ;
-    cs:produsen_data_province_code "00" ;
-    cs:produsen_data_city_code "0000" ;
-    cs:last_sync "2023-10-31 09:07:00" ;
-    cs:created_at "2020-12-28 17:00:00" ;
-    cs:updated_at "2023-10-31 02:07:00" ;
-    cs:status "APPROVED" ;
-    cs:submission_period "2020" .
-
-cs:Master_indikators_5 a cs:Master_indikators ;
-    cs:id_mskeg "3"^^xsd:decimal ;
-    cs:nama "Tamu per kamar 123" ;
-    cs:konsep "\"Tamu per kamar 123\"" ;
-    cs:definisi "Tamu per kamar adalah rata-rata banyaknya tamu dalam satu kamar yang disewa yang dibedakan ke dalam tamu asing, domestik, asing dan domestic" ;
-    cs:produsen_data_province_code "00" ;
-    cs:produsen_data_city_code "0000" ;
-    cs:last_sync "2023-10-31 09:07:00" ;
-    cs:created_at "2020-12-28 17:00:00" ;
-    cs:updated_at "2023-10-31 02:07:00" ;
-    cs:status "APPROVED" ;
-    cs:submission_period "2020" .
-
-cs:Master_indikators_6 a cs:Master_indikators ;
-    cs:id_mskeg "3"^^xsd:decimal ;
-    cs:nama "TPTT Hotel" ;
-    cs:konsep "\"Tingkat Pemakaian Tempat Tidur (TPTT) Hotel\"" ;
-    cs:definisi "Tingkat Pemakaian Tempat Tidur (TPTT) Hotel adalah perbandingan antara jumlah tempat tidur hotel yang telah dipakai dengan jumlah tempat tidur yang tersedia." ;
-    cs:produsen_data_province_code "00" ;
-    cs:produsen_data_city_code "0000" ;
-    cs:last_sync "2023-10-31 09:07:00" ;
-    cs:created_at "2020-12-28 17:00:00" ;
-    cs:updated_at "2023-10-31 02:07:00" ;
-    cs:status "APPROVED" ;
-    cs:submission_period "2020" .
-
-Tolong analisis data diatas dan berikan output sesuai template yang diberikan. Identifikasi entitas yang sama atau sangat mirip berdasarkan:
-1. Kesamaan id_mskeg
-2. Kemiripan nama dan konsep
-3. Kemiripan definisi
-4. Kesamaan kode produsen data
-5. Kesamaan timestamps dan status
-6. Kesamaan periode submission
-
-Berikan similarity score berdasarkan berapa banyak field yang cocok dari kriteria diatas. Gunakan format yang sama persis dengan template, termasuk prefixes dan structure-nya."""
-        
-        # Generate konten
-        response = model.generate_content(prompt)
-        
-        # Return plain text response
-        return Response(response.text, content_type='text/plain')
-            
-    except Exception as e:
-        return Response(f"Error: {str(e)}", content_type='text/plain')
-    
+# melakukan check entity resolution
 @app.route('/check_gsbpm_entity', methods=['GET'])
 def check_gsbpm_entity():
     try:
@@ -802,9 +388,14 @@ def check_gsbpm_entity():
         genai.configure(api_key='AIzaSyA1ZHwqVwzj1z9A8lWNhlXZfX5-sby__8A')
         model = genai.GenerativeModel('gemini-pro')
         
+        # Get the directory where the Flask app is located
+        app_dir = os.path.dirname(os.path.abspath(__file__))
+        ontology_path = os.path.join(app_dir, 'gsbpm_ontology.ttl')
+        # cek file gsbpm_ontology.ttl
+        
         # Load the GSBPM ontology file
         g = Graph()
-        g.parse("gsbpm_ontology.ttl", format="turtle")
+        g.parse(ontology_path, format="turtle")
         
         def safe_n3(value):
             """Safely convert value to N3 format, handling None values"""
@@ -896,12 +487,13 @@ gsbpm:Project_1 a gsbpm:StatisticalProject ;
     gsbpm:hasProjectName "Census Project" ;
     owl:sameAs gsbpm:Project_2 .
 
-gsbpm:equivalence_reason a owl:Annotation ;
+gsbpm:equivalence_reason_1 a owl:Annotation ;
     gsbpm:related_entity_1 gsbpm:Project_1 ;
     gsbpm:related_entity_2 gsbpm:Project_2 ;
     gsbpm:similarity_score "0.90"^^xsd:decimal ;
     gsbpm:matching_fields "projectID, projectName, indicators, metadata" ;
     gsbpm:resolution_date "2024-11-20"^^xsd:date .
+
 
 Data Input untuk dianalisis:
 {input_data}
@@ -919,29 +511,34 @@ Berikan similarity score berdasarkan berapa banyak field yang cocok dari kriteri
         # Generate konten
         response = model.generate_content(prompt)
         
-        # Return response dalam format Turtle
-        return Response(
-            response.text,
-            mimetype='text/turtle',
-            headers={
-                'Content-Disposition': 'attachment; filename=gsbpm_entity_resolution.ttl'
-            }
-        )
+        # Save response to file
+       # Save response to file
+        output_path = os.path.join(app_dir, 'gsbpm_entity_resolution.ttl')
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(response.text)
+        
+        # Instead of returning a Response, redirect to dashboard
+        return redirect(url_for('entity_resolution_dashboard'))
+            
+    except Exception as e:
+        import traceback
+        return f"Error: {str(e)}\n\nTraceback:\n{traceback.format_exc()}", 500
             
     except Exception as e:
         import traceback
         return f"Error: {str(e)}\n\nTraceback:\n{traceback.format_exc()}", 500
     
+# untuk menampilkan outputnya    
 @app.route('/dashboard')
 def entity_resolution_dashboard():
     try:
         # Read the Turtle output (mock for now, or read from a file)
         with open("gsbpm_entity_resolution.ttl", "r") as file:
-            turtle_data = file.read()
+            ttl_content = file.read() 
         
         # Parse the Turtle file into JSON-LD or triples for frontend
         g = Graph()
-        g.parse(data=turtle_data, format="turtle")
+        g.parse(data=ttl_content, format="turtle")
         
         GSBPM = Namespace("http://example.org/gsbpm#")
         OWL = Namespace("http://www.w3.org/2002/07/owl#")
@@ -971,12 +568,17 @@ def entity_resolution_dashboard():
         # Render the dashboard with the extracted data
         return render_template(
             'dashboard.html',
+            ttl_content=ttl_content,  # Pass the TTL content
             entities=entities,
             resolutions=resolutions
         )
     except Exception as e:
         import traceback
         return f"Error: {str(e)}\n\nTraceback:\n{traceback.format_exc()}", 500
+    
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
