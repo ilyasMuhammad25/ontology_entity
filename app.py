@@ -8,8 +8,6 @@ from difflib import SequenceMatcher
 import re
 import itertools
 from sqlalchemy import create_engine, inspect,text
-# from fuzzywuzzy import fuzz
-# from fuzzywuzzy import process
 import json
 import os
 import pandas as pd
