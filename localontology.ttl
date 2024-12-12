@@ -291,17 +291,17 @@ cs:Master_indikators_2 a cs:Master_indikators ;    # Instance dari class Master_
     cs:submission_period "2021" ;    # Menggunakan Data Property .
 
 cs:Master_indikators_3 a cs:Master_indikators ;    # Instance dari class Master_indikators
-    cs:id_mskeg "3"^^xsd:decimal ;    # Menggunakan Data Property
-    cs:nama "Lama menginap tamu" ;    # Menggunakan Data Property
-    cs:konsep "\"Lama menginap tamu\"" ;    # Menggunakan Data Property
-    cs:definisi "Lama menginap tamu adalah rata-rata lama menginap tamu yang dibedakan ke dalam tamu asing, domestik, asing dan domestik" ;    # Menggunakan Data Property
+     cs:id_mskeg "2"^^xsd:decimal ;    # Menggunakan Data Property
+    cs:nama "Jumlah Penduduk Sensus Penduduk 2020 abc" ;    # Menggunakan Data Property
+    cs:konsep "\"Penduduk\ abc"" ;    # Menggunakan Data Property
+    cs:definisi "Jumlah penduduk adalah ukuran absolut dari penduduk, dinyatakan dalam satuan jiwa. Penduduk Hasil Sensus Penduduk 2020 adalah penduduk menurut alamat domisili; yaitu semua orang (WNI dan WNA) yang tinggal di wilayah Negara Kesatuan Republik Indonesia selama satu tahun atau lebih dan atau mereka yang berdomisili kurang dari satu tahun tetapi bertujuan untuk menetap lebih dari satu tahun" ;    # Menggunakan Data Property
     cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
     cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
-    cs:last_sync "2023-10-31 09:07:00" ;    # Menggunakan Data Property
-    cs:created_at "2020-12-28 17:00:00" ;    # Menggunakan Data Property
-    cs:updated_at "2023-10-31 02:07:00" ;    # Menggunakan Data Property
+    cs:last_sync "2023-10-31 09:06:59" ;    # Menggunakan Data Property
+    cs:created_at "2021-07-18 17:00:00" ;    # Menggunakan Data Property
+    cs:updated_at "2023-10-31 02:06:59" ;    # Menggunakan Data Property
     cs:status "APPROVED" ;    # Menggunakan Data Property
-    cs:submission_period "2020" ;    # Menggunakan Data Property .
+    cs:submission_period "2021" ;    # Menggunakan Data Property .
 
 cs:Master_indikators_4 a cs:Master_indikators ;    # Instance dari class Master_indikators
     cs:id_mskeg "3"^^xsd:decimal ;    # Menggunakan Data Property
@@ -333,10 +333,14 @@ cs:Master_indikators_6 a cs:Master_indikators ;    # Instance dari class Master_
     cs:id_mskeg "3"^^xsd:decimal ;    # Menggunakan Data Property
     cs:nama "TPTT Hotel" ;    # Menggunakan Data Property
     cs:konsep "\"Tingkat Pemakaian Tempat Tidur (TPTT) Hotel\"" ;    # Menggunakan Data Property
-    cs:definisi "Tingkat Pemakaian Tempat Tidur (TPTT) Hotel adalah perbandingan antara jumlah tempat tidur hotel yang telah
-disewakan/ digunakan 
-dengan jumlah tempat tidur yang 
-tersedia di hotel itu
+    cs:definisi "Tingkat Pemakaian Tempat Tidur (TPTT) Hotel adalah perbandingan antara jumlah tempat tidur hotel yang telah
+
+disewakan/ digunakan 
+
+dengan jumlah tempat tidur yang 
+
+tersedia di hotel itu
+
 " ;    # Menggunakan Data Property
     cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
     cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
@@ -415,9 +419,12 @@ cs:Master_indikators_15 a cs:Master_indikators ;    # Instance dari class Master
     cs:id_mskeg "8"^^xsd:decimal ;    # Menggunakan Data Property
     cs:nama "Persentase Lansia yang mengalami keluhan kesehatan selama sebulan terakhir" ;    # Menggunakan Data Property
     cs:konsep "\"Keluhan kesehatan\"" ;    # Menggunakan Data Property
-    cs:definisi "keadaan lansia yang mengalami gangguan kesehatan atau kejiwaan, baik karena gangguan/penyakit
-yang sering dialami, seperti: panas, batuk, pilek, diare,sakit kepala, maupun karena penyakit akut, penyakit kronis (meskipun selama
-sebulan terakhir tidak mempunyai keluhan), karena kecelakaan, kriminalitas atau keluhan kesehatan lainnya. Keluhan yang dimaksud adalah keluhan fisik maupun psikis.
+    cs:definisi "keadaan lansia yang mengalami gangguan kesehatan atau kejiwaan, baik karena gangguan/penyakit
+
+yang sering dialami, seperti: panas, batuk, pilek, diare,sakit kepala, maupun karena penyakit akut, penyakit kronis (meskipun selama
+
+sebulan terakhir tidak mempunyai keluhan), karena kecelakaan, kriminalitas atau keluhan kesehatan lainnya. Keluhan yang dimaksud adalah keluhan fisik maupun psikis.
+
 " ;    # Menggunakan Data Property
     cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
     cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
@@ -431,8 +438,10 @@ cs:Master_indikators_16 a cs:Master_indikators ;    # Instance dari class Master
     cs:id_mskeg "8"^^xsd:decimal ;    # Menggunakan Data Property
     cs:nama "Angka Kesakitan Penduduk Lansia" ;    # Menggunakan Data Property
     cs:konsep "\"Keluhan kesehatan dan terganggu aktivitas\"" ;    # Menggunakan Data Property
-    cs:definisi "keadaan lansia yang mengalami gangguan kesehatan atau kejiwaan, baik karena gangguan/penyakit
-yang sering dialami dan terganggunya aktivitas sehari-hari akibat keluhan kesehatan tersebut
+    cs:definisi "keadaan lansia yang mengalami gangguan kesehatan atau kejiwaan, baik karena gangguan/penyakit
+
+yang sering dialami dan terganggunya aktivitas sehari-hari akibat keluhan kesehatan tersebut
+
 " ;    # Menggunakan Data Property
     cs:produsen_data_province_code "00" ;    # Menggunakan Data Property
     cs:produsen_data_city_code "0000" ;    # Menggunakan Data Property
@@ -633,9 +642,11 @@ cs:Master_kegiatans_8 a cs:Master_kegiatans ;    # Instance dari class Master_ke
     cs:tahun_kegiatan "2014"^^xsd:decimal ;    # Menggunakan Data Property
     cs:jenis_statistik "STATISTIK KHUSUS" ;    # Menggunakan Data Property
     cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
-    cs:pj_jabatan "Ketua Lembaga Penelitian Universitas Negeri Gorontalo
+    cs:pj_jabatan "Ketua Lembaga Penelitian Universitas Negeri Gorontalo
+
 " ;    # Menggunakan Data Property
-    cs:tujuan_kegiatan "1. Mendeskripsikan profil gender civitas akademika dan tenaga penunjang akademik di Universitas Negeri Gorontalo
+    cs:tujuan_kegiatan "1. Mendeskripsikan profil gender civitas akademika dan tenaga penunjang akademik di Universitas Negeri Gorontalo
+
 2. Mengkaji peran gender dalam kebijakan manajemen di Universitas Negeri Gorontalo" ;    # Menggunakan Data Property
     cs:status "APPROVED" ;    # Menggunakan Data Property
     cs:produsen_data_name "ipds7500" ;    # Menggunakan Data Property
@@ -652,8 +663,10 @@ cs:Master_kegiatans_9 a cs:Master_kegiatans ;    # Instance dari class Master_ke
     cs:jenis_statistik "STATISTIK KHUSUS" ;    # Menggunakan Data Property
     cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
     cs:pj_jabatan "Peneliti" ;    # Menggunakan Data Property
-    cs:tujuan_kegiatan "Menganalisis faktor-faktor motivasi kerja yang terdiri dari tiga kategori yaitu karakteristik individu, karakteristik pekerjaan, dan karakteristik lingkungan kerja;
-
+    cs:tujuan_kegiatan "Menganalisis faktor-faktor motivasi kerja yang terdiri dari tiga kategori yaitu karakteristik individu, karakteristik pekerjaan, dan karakteristik lingkungan kerja;
+
+
+
 Memperoleh data untuk pengambilan keputusan peningkatan produktivitas dan kesejahteraan karyawan." ;    # Menggunakan Data Property
     cs:status "APPROVED" ;    # Menggunakan Data Property
     cs:produsen_data_name "ipds1400" ;    # Menggunakan Data Property
@@ -669,10 +682,14 @@ cs:Master_kegiatans_10 a cs:Master_kegiatans ;    # Instance dari class Master_k
     cs:tahun_kegiatan "2006"^^xsd:decimal ;    # Menggunakan Data Property
     cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
     cs:pj_jabatan "Sub Direktorat Indikator Statistik" ;    # Menggunakan Data Property
-    cs:tujuan_kegiatan "Memberikan gambaran umum tentang tingkat perkembangan kesejahteraan rakyat Indonesia antar waktu dan perbandingannya antar 
-
-propinsi serta daerah tempat tinggal yang mencakup pengkajian bidang-bidang yang menjadi acuan dalam upaya peningkatan kualitas hidup, yaitu 
-
+    cs:tujuan_kegiatan "Memberikan gambaran umum tentang tingkat perkembangan kesejahteraan rakyat Indonesia antar waktu dan perbandingannya antar 
+
+
+
+propinsi serta daerah tempat tinggal yang mencakup pengkajian bidang-bidang yang menjadi acuan dalam upaya peningkatan kualitas hidup, yaitu 
+
+
+
 kependudukan, kesehatan dan gizi, pendidikan, ketenagakerjaan, taraf dan pola konsumsi, perumahan serta sosial lainnya." ;    # Menggunakan Data Property
     cs:status "APPROVED" ;    # Menggunakan Data Property
     cs:produsen_data_name "Sub Direktorat Indikator Statistik" ;    # Menggunakan Data Property
@@ -689,7 +706,8 @@ cs:Master_kegiatans_11 a cs:Master_kegiatans ;    # Instance dari class Master_k
     cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
     cs:cara_pengumpulan_data "SURVEI" ;    # Menggunakan Data Property
     cs:pj_jabatan "Sub Direktorat Statistik Rumah Tangga, Seksi Penyiapan Kegiatan Statistik" ;    # Menggunakan Data Property
-    cs:tujuan_kegiatan "1. Tersedianya data pokok tentang kesejahteraan masyarakat; 
+    cs:tujuan_kegiatan "1. Tersedianya data pokok tentang kesejahteraan masyarakat; 
+
 2. Terhimpunnya data tentang konsumsi dan pengeluaran penduduk" ;    # Menggunakan Data Property
     cs:status "APPROVED" ;    # Menggunakan Data Property
     cs:produsen_data_name "Sub Direktorat Statistik Rumah Tangga, Seksi Penyiapan Kegiatan Statistik" ;    # Menggunakan Data Property
@@ -786,8 +804,10 @@ cs:Master_kegiatans_17 a cs:Master_kegiatans ;    # Instance dari class Master_k
     cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
     cs:cara_pengumpulan_data "SURVEI" ;    # Menggunakan Data Property
     cs:pj_jabatan "Bagian Statistik Keuangan" ;    # Menggunakan Data Property
-    cs:tujuan_kegiatan "Menyediakan data Realisasi penerimaan, dan Realisasi Pengeluran Rutin dan Pembangunan Pemda Tingkat I secara berkala setiap 
-
+    cs:tujuan_kegiatan "Menyediakan data Realisasi penerimaan, dan Realisasi Pengeluran Rutin dan Pembangunan Pemda Tingkat I secara berkala setiap 
+
+
+
 tahunnya" ;    # Menggunakan Data Property
     cs:status "APPROVED" ;    # Menggunakan Data Property
     cs:produsen_data_name "Bagian Statistik Keuangan" ;    # Menggunakan Data Property
@@ -820,9 +840,12 @@ cs:Master_kegiatans_19 a cs:Master_kegiatans ;    # Instance dari class Master_k
     cs:jenis_statistik "STATISTIK_DASAR" ;    # Menggunakan Data Property
     cs:cara_pengumpulan_data "PENCACAHAN_LENGKAP" ;    # Menggunakan Data Property
     cs:pj_jabatan "Direktorat Statistik Keuangan, Teknologi Informasi dan Pariwisata, BPS Pusat" ;    # Menggunakan Data Property
-    cs:tujuan_kegiatan "Menyediakan data indikator usaha berbagai jenis kegiatan lembaga keuangan (Perbankan konvensional, Perbankan syariah, pasar 
-
-modal, perasuransian, dana pensiun, pegadaian, pedagang valuta asing dan perkoperasian) secara berkala setiap tahunnya.
+    cs:tujuan_kegiatan "Menyediakan data indikator usaha berbagai jenis kegiatan lembaga keuangan (Perbankan konvensional, Perbankan syariah, pasar 
+
+
+
+modal, perasuransian, dana pensiun, pegadaian, pedagang valuta asing dan perkoperasian) secara berkala setiap tahunnya.
+
 Menyediakan data laporan keuanga berupa neraca dan laporan laba/rugi berbagai jenis kegiatan lembaga keuangan secara berkala setiap tahunnya" ;    # Menggunakan Data Property
     cs:status "APPROVED" ;    # Menggunakan Data Property
     cs:produsen_data_name "Direktorat Statistik Keuangan, Teknologi Informasi dan Pariwisata, BPS Pusat" ;    # Menggunakan Data Property
@@ -870,7 +893,8 @@ cs:Master_kegiatans_22 a cs:Master_kegiatans ;    # Instance dari class Master_k
     cs:jenis_statistik "STATISTIK KHUSUS" ;    # Menggunakan Data Property
     cs:cara_pengumpulan_data "Sebagian populasi (Survei)" ;    # Menggunakan Data Property
     cs:pj_jabatan "Lektor Kepala" ;    # Menggunakan Data Property
-    cs:tujuan_kegiatan "- Menganalisa karakteristik daerah pesisir Kota Bengkulu terhadap resiko bencana tsunami melalui teknik dan analisis penginderaan jauh;
+    cs:tujuan_kegiatan "- Menganalisa karakteristik daerah pesisir Kota Bengkulu terhadap resiko bencana tsunami melalui teknik dan analisis penginderaan jauh;
+
 - Menyusun dan merancang sistem informasi kebencanaan melalui pembuatan peta kerawanan resiko tsunami dan peta jalur evakuasi di Kota Bengkulu dengan SIG. " ;    # Menggunakan Data Property
     cs:status "APPROVED" ;    # Menggunakan Data Property
     cs:produsen_data_name "ipds1700" ;    # Menggunakan Data Property
@@ -1009,7 +1033,7 @@ cs:Metadata_variabels_106541 a cs:Metadata_variabels ;    # Instance dari class 
 
 cs:Metadata_variabels_128923 a cs:Metadata_variabels ;    # Instance dari class Metadata_variabels
     cs:id_mskeg "29476"^^xsd:decimal ;    # Menggunakan Data Property
-    cs:nama "Jumlah Penduduk Sensus Penduduk 2020" ;    # Menggunakan Data Property
+    cs:nama "AD dan ART Organisasi" ;    # Menggunakan Data Property
     cs:konsep "\"AD dan ART Organisasi adalah bentuk perikatan dalam berorganisasi yang menjadi pedoman bagi semua pihak yang terkait dalam organisasi\"" ;    # Menggunakan Data Property
     cs:definisi "AD dan ART Organisasi adalah bentuk perikatan dalam berorganisasi yang menjadi pedoman bagi semua pihak yang terkait dalam organisasi" ;    # Menggunakan Data Property
     cs:produsen_data_name "Kantor Kesatuan Bangsa dan Politik" ;    # Menggunakan Data Property
