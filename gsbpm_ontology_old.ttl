@@ -1,0 +1,275 @@
+@prefix gsbpm: <http://example.org/gsbpm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+gsbpm:Analyze a owl:Class ;
+    rdfs:label "Analyze"@en ;
+    rdfs:comment "Phase 6 of GSBPM - Analyze"@en .
+
+gsbpm:Build a owl:Class ;
+    rdfs:label "Build"@en ;
+    rdfs:comment "Phase 3 of GSBPM - Build"@en .
+
+gsbpm:Collect a owl:Class ;
+    rdfs:label "Collect"@en ;
+    rdfs:comment "Phase 4 of GSBPM - Collect"@en .
+
+gsbpm:Disseminate a owl:Class ;
+    rdfs:label "Disseminate"@en ;
+    rdfs:comment "Phase 7 of GSBPM - Disseminate"@en .
+
+gsbpm:GSBPMOntology a owl:Ontology ;
+    rdfs:label "GSBPM Ontology"@en ;
+    rdfs:comment "An ontology for the Generic Statistical Business Process Model"@en .
+
+gsbpm:Process a owl:Class ;
+    rdfs:label "Process"@en ;
+    rdfs:comment "Phase 5 of GSBPM - Process"@en .
+
+gsbpm:Project_1 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
+            gsbpm:statisticalType "STATISTIK SEKTORAL" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "1" ;
+    gsbpm:hasProjectName "Kajian Etikolegal Pengaturan Fasilitas Pelayanan Kesehatan Dasar (klinik) Berbasis Profesionalisme Profesi" ;
+    gsbpm:hasStartDate "2014-09-17 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_10 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "None" ;
+            gsbpm:statisticalType "STATISTIK_DASAR" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "10" ;
+    gsbpm:hasProjectName "Kompilasi Data Statistik Indikator Kesejahteraan Rakyat" ;
+    gsbpm:hasStartDate "1970-01-01 00:00:00"^^xsd:dateTime .
+
+gsbpm:Project_11 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "SURVEI" ;
+            gsbpm:statisticalType "STATISTIK_DASAR" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "11" ;
+    gsbpm:hasProjectName "Survei Sosial Ekonomi Nasional (SUSENAS) Kor (Tahunan)" ;
+    gsbpm:hasStartDate "1970-01-01 00:00:00"^^xsd:dateTime .
+
+gsbpm:Project_12 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
+            gsbpm:statisticalType "STATISTIK KHUSUS" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "12" ;
+    gsbpm:hasProjectName "Content Based Image Retrieval Sistem (CBIRS) Kayu Cendana dengan Transformasi Wavelet Diskret" ;
+    gsbpm:hasStartDate "2014-08-13 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_13 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
+            gsbpm:statisticalType "STATISTIK KHUSUS" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "13" ;
+    gsbpm:hasProjectName "Analisis Pengaruh Learning Rate dan Momentum Pada Algoritma Dropagasi Balik Dalam Prediksi Kelainan Mata" ;
+    gsbpm:hasStartDate "2014-08-14 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_14 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
+            gsbpm:statisticalType "STATISTIK SEKTORAL" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "14" ;
+    gsbpm:hasProjectName "Monitoring dan Evaluasi Stok dan Harga Bahan Pokok dan Barang Strategis lainnya" ;
+    gsbpm:hasStartDate "2014-10-25 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_15 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
+            gsbpm:statisticalType "STATISTIK SEKTORAL" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "15" ;
+    gsbpm:hasProjectName "Survei Data Pangan Siap Samtap yg Dikemas dengan Polistirena Busa (Styrofoam)" ;
+    gsbpm:hasStartDate "2014-10-25 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_16 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
+            gsbpm:statisticalType "STATISTIK SEKTORAL" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "16" ;
+    gsbpm:hasProjectName "Survei Kepuasan Pelanggan di Direktorat Inspeksi dan Sertifikasi Pangan" ;
+    gsbpm:hasStartDate "2014-10-25 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_17 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "SURVEI" ;
+            gsbpm:statisticalType "STATISTIK_DASAR" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "17" ;
+    gsbpm:hasProjectName "Survei Statistik Keuangan Pemerintah Daerah Provinsi" ;
+    gsbpm:hasStartDate "1970-01-01 00:00:00"^^xsd:dateTime .
+
+gsbpm:Project_18 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "SURVEI" ;
+            gsbpm:statisticalType "STATISTIK_DASAR" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "18" ;
+    gsbpm:hasProjectName "Survei Statistik Keuangan Pemerintah Daerah Kabupaten/Kota" ;
+    gsbpm:hasStartDate "1970-01-01 00:00:00"^^xsd:dateTime .
+
+gsbpm:Project_19 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "PENCACAHAN_LENGKAP" ;
+            gsbpm:statisticalType "STATISTIK_DASAR" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "19" ;
+    gsbpm:hasProjectName "Survei Statistik Lembaga Keuangan" ;
+    gsbpm:hasStartDate "2009-11-22 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_2 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "PENCACAHAN_LENGKAP" ;
+            gsbpm:statisticalType "STATISTIK_DASAR" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "2" ;
+    gsbpm:hasProjectName "Sensus Penduduk" ;
+    gsbpm:hasSpecifyNeeds [ a gsbpm:SpecifyNeeds ;
+            gsbpm:consultStakeholders "None" ;
+            gsbpm:identifyNeeds "Jumlah Penduduk Sensus Penduduk 2020" ] ;
+    gsbpm:hasStartDate "1970-01-01 00:00:00"^^xsd:dateTime .
+
+gsbpm:Project_20 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
+            gsbpm:statisticalType "STATISTIK KHUSUS" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "20" ;
+    gsbpm:hasProjectName "Analisis Kepuasan Kerja Terhadap Prestasi Kerja Karyawan PT. Batang Hari Barisan Padang" ;
+    gsbpm:hasStartDate "2014-10-25 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_21 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "None" ;
+            gsbpm:statisticalType "STATISTIK_DASAR" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "21" ;
+    gsbpm:hasProjectName "Survei Angkatan Kerja Nasional (SAKERNAS)" ;
+    gsbpm:hasStartDate "1970-01-01 00:00:00"^^xsd:dateTime .
+
+gsbpm:Project_22 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
+            gsbpm:statisticalType "STATISTIK KHUSUS" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "22" ;
+    gsbpm:hasProjectName "Perancangan Sistem Informasi Kebencanaan Tsunami melalui Penyusunan Peta Kerawanan dan Jalur Evakuasi Bencana di Pesisir Kota Bengkulu" ;
+    gsbpm:hasStartDate "2014-08-25 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_23 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
+            gsbpm:statisticalType "STATISTIK SEKTORAL" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "23" ;
+    gsbpm:hasProjectName "Kajian Pengaturan Fasilitas Pelayanan Kesehatan Dasar (klinik) Berbasis Profesionalisme Profesi" ;
+    gsbpm:hasStartDate "2014-09-17 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_3 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "SURVEI" ;
+            gsbpm:statisticalType "STATISTIK_DASAR" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "3" ;
+    gsbpm:hasProjectName "Survei Tingkat Penghunian Kamar Hotel (VHTS)" ;
+    gsbpm:hasSpecifyNeeds [ a gsbpm:SpecifyNeeds ;
+            gsbpm:consultStakeholders "None" ;
+            gsbpm:identifyNeeds "Lama menginap tamu",
+                "Malam kamar terpakai",
+                "Malam tamu menignap",
+                "TPTT Hotel",
+                "Tamu per kamar",
+                "Tingkat Penghunian Kamar (TPK) Hotel" ] ;
+    gsbpm:hasStartDate "2016-12-27 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_6 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
+            gsbpm:statisticalType "STATISTIK KHUSUS" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "6" ;
+    gsbpm:hasProjectName "Pemetaan sosial masyarakat di wilayah Ring 1 Holcim" ;
+    gsbpm:hasStartDate "2014-09-18 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_7 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "KOMPILASI_PRODUK_ADMINISTRASI" ;
+            gsbpm:statisticalType "STATISTIK_DASAR" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "7" ;
+    gsbpm:hasProjectName "Penyusunan PDB Pengeluaran Komponen Pengeluaran Konsumsi LNPRT (PK-LNPRT)" ;
+    gsbpm:hasStartDate "2016-12-27 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_8 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
+            gsbpm:statisticalType "STATISTIK KHUSUS" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "8" ;
+    gsbpm:hasProjectName "Penelitian Profil Gender di Universitas Negeri Gorontalo" ;
+    gsbpm:hasSpecifyNeeds [ a gsbpm:SpecifyNeeds ;
+            gsbpm:consultStakeholders "None" ;
+            gsbpm:identifyNeeds "Angka Kesakitan Penduduk Lansia",
+                "Angka Melek Huruf Penduduk Lansia",
+                "Persentase Lansia yang mengalami keluhan kesehatan selama sebulan terakhir",
+                "Persentase Penduduk Lanjut Usia",
+                "Persentase Penduduk Lansia Menurut Provinsi dan Pendidikan Tertinggi yang Ditamatkan",
+                "Persentase Penduduk Lansia yang Memiliki Jaminan Kesehatan",
+                "Rasio Ketergantungan Penduduk Lansia" ] ;
+    gsbpm:hasStartDate "2014-10-25 17:00:00"^^xsd:dateTime .
+
+gsbpm:Project_9 a gsbpm:StatisticalProject ;
+    gsbpm:hasDesign [ a gsbpm:Design ;
+            gsbpm:dataCollectionMethod "Sebagian populasi (Survei)" ;
+            gsbpm:statisticalType "STATISTIK KHUSUS" ] ;
+    gsbpm:hasMetadataManagement [ a gsbpm:MetadataManagement ] ;
+    gsbpm:hasProjectID "9" ;
+    gsbpm:hasProjectName "Analisis faktor-faktor MotivasiKerja Terhadap Prestasi Kerja Karyawan PT. Batanghari Barisan Padang" ;
+    gsbpm:hasSpecifyNeeds [ a gsbpm:SpecifyNeeds ;
+            gsbpm:consultStakeholders "None" ;
+            gsbpm:identifyNeeds "Angka Partisipasi Kasar (APK) PAUD (3-5 tahun dan 3 sampai 6 tahun)",
+                "Angka Partisipasi Kasar (APK) PAUD (3-5 tahun dan 3-6 tahun)",
+                "Angka Partisipasi Kasar (APK) SD, SMP, SM, PT (19-24 tahun) dan PT (19-23 tahun)",
+                "Angka Partisipasi Murni (APM) PAUD (3-5 tahun dan 3-6 tahun)",
+                "Angka Partisipasi Murni (APM) SD, SMP, SM, PT (19-24 tahun), dan PT (19-23 tahun)",
+                "Angka Partisipasi Sekolah (APS) 7-12 tahun, 13-15 tahun, 16-18 tahun, 19-24 tahun dan 19-23 tahun",
+                "Tingkat kelulusan Sekolah" ] ;
+    gsbpm:hasStartDate "2014-10-25 17:00:00"^^xsd:dateTime .
+
+gsbpm:QualityManagement a owl:Class ;
+    rdfs:label "Quality Management"@en ;
+    rdfs:comment "Overarching process - Quality Management"@en .
+
+gsbpm:hasProjectID a owl:DatatypeProperty ;
+    rdfs:domain gsbpm:StatisticalProject ;
+    rdfs:range xsd:string .
+
+gsbpm:hasProjectName a owl:DatatypeProperty ;
+    rdfs:domain gsbpm:StatisticalProject ;
+    rdfs:range xsd:string .
+
+gsbpm:SpecifyNeeds a owl:Class ;
+    rdfs:label "Specify Needs"@en ;
+    rdfs:comment "Phase 1 of GSBPM - Specify Needs"@en .
+
+gsbpm:Design a owl:Class ;
+    rdfs:label "Design"@en ;
+    rdfs:comment "Phase 2 of GSBPM - Design"@en .
+
+gsbpm:MetadataManagement a owl:Class ;
+    rdfs:label "Metadata Management"@en ;
+    rdfs:comment "Overarching process - Metadata Management"@en .
+
+gsbpm:StatisticalProject a owl:Class ;
+    rdfs:label "Statistical Project"@en ;
+    rdfs:comment "A statistical project following GSBPM model"@en .
+

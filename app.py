@@ -29,7 +29,7 @@ def load_db_config():
             'host': 'localhost',
             'username': 'root',
             'password': '',
-            'dbname': 'bps'
+            'dbname': 'bps_20record'
         }
 
 db_config = load_db_config()
@@ -473,17 +473,17 @@ def check_gsbpm_entity():
             return "No valid projects found in the ontology", 404
         
         # Membuat prompt untuk analisis entity resolution
-        prompt = f"""Lakukan entity resolution dari data GSBPM dan berikan output dengan format seperti template dibawah ini:
+        prompt = f"""Perform entity resolution from GSBPM data and provide output following the template below:
 
-Template Output yang diinginkan:
+Template of Desired Output:
 @prefix gsbpm: <http://example.org/gsbpm#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-gsbpm:Project_1 a gsbpm:StatisticalProject ;
-    gsbpm:hasProjectID "1"^^xsd:decimal ;
-    gsbpm:hasProjectName "Census Project" ;
-    owl:sameAs gsbpm:Project_2 .
+gsbpm:Project a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID ""^^xsd:decimal ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project .
 
 gsbpm:equivalence_reason_1 a owl:Annotation ;
     gsbpm:related_entity_1 gsbpm:Project_1 ;
@@ -492,19 +492,18 @@ gsbpm:equivalence_reason_1 a owl:Annotation ;
     gsbpm:matching_fields "projectID, projectName, indicators, metadata" ;
     gsbpm:resolution_date "2024-11-20"^^xsd:date .
 
-
-Data Input untuk dianalisis:
+Input Data to be analyzed:
 {input_data}
 
-Tolong analisis data diatas dan berikan output sesuai template yang diberikan. Identifikasi entitas yang sama atau sangat mirip berdasarkan:
-1. Kesamaan projectID
-2. Kemiripan projectName
-3. Kemiripan dalam fase SpecifyNeeds (indicators)
-4. Kemiripan dalam MetadataManagement
-5. Kesamaan timestamps
-6. Kesamaan phases yang terlibat
+Please analyze the above data and provide output according to the given template. Identify entities that are identical or very similar based on:
 
-Berikan similarity score berdasarkan berapa banyak field yang cocok dari kriteria diatas. Gunakan format yang sama persis dengan template, termasuk prefixes dan structure-nya."""
+1. Similarity in projectName
+2. Similarity in SpecifyNeeds phase (indicators)
+3. Similarity in MetadataManagement
+4. Matching timestamps
+5. Matching involved phases
+
+Provide similarity score based on how many fields match from the criteria above. Use exactly the same format as the template, including prefixes and structure.."""
         
         # Generate konten
         response = model.generate_content(prompt)

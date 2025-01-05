@@ -3,41 +3,160 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 gsbpm:Project_1 a gsbpm:StatisticalProject ;
-    gsbpm:hasProjectID "1"^^xsd:decimal ;
-    gsbpm:hasProjectName "Kajian Etikolegal Pengaturan Fasilitas Pelayanan Kesehatan Dasar (klinik) Berbasis Profesionalisme Profesi" .
+    gsbpm:hasProjectID "1" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_90 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
 
-gsbpm:Project_2 a gsbpm:StatisticalProject ;
-    gsbpm:hasProjectID "2"^^xsd:decimal ;
-    gsbpm:hasProjectName "Sensus Penduduk" ;
-    owl:sameAs gsbpm:Project_23 .
+gsbpm:Project_10 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "10" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_11 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
 
-gsbpm:equivalence_reason_1 a owl:Annotation ;
-    gsbpm:related_entity_1 gsbpm:Project_1 ;
-    gsbpm:related_entity_2 gsbpm:Project_23 ;
-    gsbpm:similarity_score "0.95"^^xsd:decimal ;
-    gsbpm:matching_fields "projectName, startDate" ;
-    gsbpm:resolution_date "2024-11-20"^^xsd:date .
+gsbpm:Project_100 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "100" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_207 ;
+    owl:sameAs gsbpm:Project_211 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
 
-gsbpm:Project_3 a gsbpm:StatisticalProject ;
-    gsbpm:hasProjectID "3"^^xsd:decimal ;
-    gsbpm:hasProjectName "Survei Tingkat Penghunian Kamar Hotel (VHTS)" ;
-    owl:sameAs gsbpm:Project_6 .
+gsbpm:Project_101 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "101" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_102 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
 
-gsbpm:equivalence_reason_2 a owl:Annotation ;
-    gsbpm:related_entity_1 gsbpm:Project_3 ;
-    gsbpm:related_entity_2 gsbpm:Project_6 ;
-    gsbpm:similarity_score "0.90"^^xsd:decimal ;
-    gsbpm:matching_fields "projectName, startDate" ;
-    gsbpm:resolution_date "2024-11-21"^^xsd:date .
+gsbpm:Project_103 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "103" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_104 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
 
-gsbpm:Project_8 a gsbpm:StatisticalProject ;
-    gsbpm:hasProjectID "8"^^xsd:decimal ;
-    gsbpm:hasProjectName "Penelitian Profil Gender di Universitas Negeri Gorontalo" ;
-    owl:sameAs gsbpm:Project_9 .
+gsbpm:Project_105 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "105" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_106 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
 
-gsbpm:equivalence_reason_3 a owl:Annotation ;
-    gsbpm:related_entity_1 gsbpm:Project_8 ;
-    gsbpm:related_entity_2 gsbpm:Project_9 ;
-    gsbpm:similarity_score "0.75"^^xsd:decimal ;
-    gsbpm:matching_fields "projectName, startDate" ;
-    gsbpm:resolution_date "2024-11-22"^^xsd:date .
+gsbpm:Project_107 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "107" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_108 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_109 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "109" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_110 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_11 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "11" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_10 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_111 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "111" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_123 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_112 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "112" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_113 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_113 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "113" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_111 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_115 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "115" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_116 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_116 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "116" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_114 ;
+    owl:sameAs gsbpm:Project_115 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_118 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "118" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_120 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_119 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "119" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_116 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_12 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "12" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_13 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_120 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "120" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_117 ;
+    owl:sameAs gsbpm:Project_118 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_121 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "121" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_122 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_122 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "122" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_121 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_124 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "124" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_125 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_126 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "126" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_127 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_127 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "127" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_126 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_128 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "128" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_129 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_129 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "129" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_128 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .
+
+gsbpm:Project_13 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "13" ;
+    gsbpm:hasProjectName "" ;
+    owl:sameAs gsbpm:Project_12 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal .

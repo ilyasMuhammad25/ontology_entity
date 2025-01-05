@@ -1,0 +1,43 @@
+@prefix gsbpm: <http://example.org/gsbpm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+gsbpm:Project_1 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "1"^^xsd:decimal ;
+    gsbpm:hasProjectName "Kajian Etikolegal Pengaturan Fasilitas Pelayanan Kesehatan Dasar (klinik) Berbasis Profesionalisme Profesi" .
+
+gsbpm:Project_2 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "2"^^xsd:decimal ;
+    gsbpm:hasProjectName "Sensus Penduduk" ;
+    owl:sameAs gsbpm:Project_23 .
+
+gsbpm:equivalence_reason_1 a owl:Annotation ;
+    gsbpm:related_entity_1 gsbpm:Project_1 ;
+    gsbpm:related_entity_2 gsbpm:Project_23 ;
+    gsbpm:similarity_score "0.95"^^xsd:decimal ;
+    gsbpm:matching_fields "projectName, startDate" ;
+    gsbpm:resolution_date "2024-11-20"^^xsd:date .
+
+gsbpm:Project_3 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "3"^^xsd:decimal ;
+    gsbpm:hasProjectName "Survei Tingkat Penghunian Kamar Hotel (VHTS)" ;
+    owl:sameAs gsbpm:Project_6 .
+
+gsbpm:equivalence_reason_2 a owl:Annotation ;
+    gsbpm:related_entity_1 gsbpm:Project_3 ;
+    gsbpm:related_entity_2 gsbpm:Project_6 ;
+    gsbpm:similarity_score "0.90"^^xsd:decimal ;
+    gsbpm:matching_fields "projectName, startDate" ;
+    gsbpm:resolution_date "2024-11-21"^^xsd:date .
+
+gsbpm:Project_8 a gsbpm:StatisticalProject ;
+    gsbpm:hasProjectID "8"^^xsd:decimal ;
+    gsbpm:hasProjectName "Penelitian Profil Gender di Universitas Negeri Gorontalo" ;
+    owl:sameAs gsbpm:Project_9 .
+
+gsbpm:equivalence_reason_3 a owl:Annotation ;
+    gsbpm:related_entity_1 gsbpm:Project_8 ;
+    gsbpm:related_entity_2 gsbpm:Project_9 ;
+    gsbpm:similarity_score "0.75"^^xsd:decimal ;
+    gsbpm:matching_fields "projectName, startDate" ;
+    gsbpm:resolution_date "2024-11-22"^^xsd:date .
